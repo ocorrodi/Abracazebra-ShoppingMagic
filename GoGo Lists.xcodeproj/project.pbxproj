@@ -7,21 +7,55 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9803217C1F0FF6A9006EA4BB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9803217B1F0FF6A9006EA4BB /* GoogleService-Info.plist */; };
+		9804F8641F13F1F1005036A9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804F8631F13F1F1005036A9 /* User.swift */; };
+		9813FA831F19314A0037F0D3 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9813FA821F19314A0037F0D3 /* ItemViewController.swift */; };
+		9813FA851F19363C0037F0D3 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9813FA841F19363C0037F0D3 /* AddItemViewController.swift */; };
+		9813FA881F1986090037F0D3 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9813FA871F1986090037F0D3 /* Item.swift */; };
+		9813FA8A1F1D1B440037F0D3 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9813FA891F1D1B430037F0D3 /* List.swift */; };
+		9813FA8C1F1D39DE0037F0D3 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9813FA8B1F1D39DE0037F0D3 /* ItemTableViewCell.swift */; };
 		9818DC311F0B310800CEC08C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9818DC301F0B310800CEC08C /* AppDelegate.swift */; };
-		9818DC331F0B310800CEC08C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9818DC321F0B310800CEC08C /* ViewController.swift */; };
+		9818DC331F0B310800CEC08C /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9818DC321F0B310800CEC08C /* IntroViewController.swift */; };
 		9818DC361F0B310800CEC08C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9818DC341F0B310800CEC08C /* Main.storyboard */; };
 		9818DC381F0B310800CEC08C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9818DC371F0B310800CEC08C /* Assets.xcassets */; };
-		9818DC3B1F0B310800CEC08C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9818DC391F0B310800CEC08C /* LaunchScreen.storyboard */; };
+		989665311F1E674D00B7CE5C /* BarcodeScanningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989665301F1E674D00B7CE5C /* BarcodeScanningViewController.swift */; };
+		989665361F1FFE8C00B7CE5C /* BuyingOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989665351F1FFE8C00B7CE5C /* BuyingOptionsTableViewCell.swift */; };
+		989665381F1FFEAC00B7CE5C /* BuyingOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989665371F1FFEAC00B7CE5C /* BuyingOptionsTableViewController.swift */; };
+		9896653A1F20123B00B7CE5C /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989665391F20123B00B7CE5C /* APIManager.swift */; };
+		9896653C1F201D2A00B7CE5C /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896653B1F201D2A00B7CE5C /* UIImageViewExtension.swift */; };
+		98C9F85E1F16A451006F2DCD /* AddListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C9F85D1F16A451006F2DCD /* AddListViewController.swift */; };
+		98C9F8601F181A93006F2DCD /* IndividualListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C9F85F1F181A92006F2DCD /* IndividualListTableViewController.swift */; };
+		98C9F8621F183449006F2DCD /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C9F8611F183449006F2DCD /* ListTableViewCell.swift */; };
+		98E7C8571F153E5500B24AF2 /* ListsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E7C8561F153E5500B24AF2 /* ListsTableViewController.swift */; };
+		9D1B63AC6A527F57401EE883 /* Pods_GoGo_Lists.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D02269D7C94818823DE357 /* Pods_GoGo_Lists.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		23D02269D7C94818823DE357 /* Pods_GoGo_Lists.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoGo_Lists.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		36EA6E89DD595B6C494B45E1 /* Pods-GoGo Lists.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoGo Lists.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoGo Lists/Pods-GoGo Lists.debug.xcconfig"; sourceTree = "<group>"; };
+		8668BAD1C9B049788F99D1EB /* Pods-GoGo Lists.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoGo Lists.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoGo Lists/Pods-GoGo Lists.release.xcconfig"; sourceTree = "<group>"; };
+		9803217B1F0FF6A9006EA4BB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9804F8631F13F1F1005036A9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9813FA821F19314A0037F0D3 /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
+		9813FA841F19363C0037F0D3 /* AddItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
+		9813FA871F1986090037F0D3 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		9813FA891F1D1B430037F0D3 /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		9813FA8B1F1D39DE0037F0D3 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		9818DC2D1F0B310800CEC08C /* GoGo Lists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GoGo Lists.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9818DC301F0B310800CEC08C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9818DC321F0B310800CEC08C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9818DC321F0B310800CEC08C /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		9818DC351F0B310800CEC08C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9818DC371F0B310800CEC08C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9818DC3A1F0B310800CEC08C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9818DC3C1F0B310800CEC08C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		989665301F1E674D00B7CE5C /* BarcodeScanningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScanningViewController.swift; sourceTree = "<group>"; };
+		989665351F1FFE8C00B7CE5C /* BuyingOptionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyingOptionsTableViewCell.swift; sourceTree = "<group>"; };
+		989665371F1FFEAC00B7CE5C /* BuyingOptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyingOptionsTableViewController.swift; sourceTree = "<group>"; };
+		989665391F20123B00B7CE5C /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		9896653B1F201D2A00B7CE5C /* UIImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		98C9F85D1F16A451006F2DCD /* AddListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddListViewController.swift; sourceTree = "<group>"; };
+		98C9F85F1F181A92006F2DCD /* IndividualListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndividualListTableViewController.swift; sourceTree = "<group>"; };
+		98C9F8611F183449006F2DCD /* ListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		98E7C8561F153E5500B24AF2 /* ListsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListsTableViewController.swift; path = ../ListsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +63,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D1B63AC6A527F57401EE883 /* Pods_GoGo_Lists.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		75FCE9A86BAA625B07DD283F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				23D02269D7C94818823DE357 /* Pods_GoGo_Lists.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9813FA861F1985A90037F0D3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9804F8631F13F1F1005036A9 /* User.swift */,
+				9813FA871F1986090037F0D3 /* Item.swift */,
+				9813FA891F1D1B430037F0D3 /* List.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		9818DC241F0B310800CEC08C = {
 			isa = PBXGroup;
 			children = (
 				9818DC2F1F0B310800CEC08C /* GoGo Lists */,
 				9818DC2E1F0B310800CEC08C /* Products */,
+				B26D5FC2EA48EB991A417E14 /* Pods */,
+				75FCE9A86BAA625B07DD283F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,13 +110,67 @@
 			isa = PBXGroup;
 			children = (
 				9818DC301F0B310800CEC08C /* AppDelegate.swift */,
-				9818DC321F0B310800CEC08C /* ViewController.swift */,
+				989665341F1E67C500B7CE5C /* Views */,
+				98C9F85C1F154419006F2DCD /* Controllers */,
+				9813FA861F1985A90037F0D3 /* Models */,
 				9818DC341F0B310800CEC08C /* Main.storyboard */,
 				9818DC371F0B310800CEC08C /* Assets.xcassets */,
-				9818DC391F0B310800CEC08C /* LaunchScreen.storyboard */,
+				9803217B1F0FF6A9006EA4BB /* GoogleService-Info.plist */,
 				9818DC3C1F0B310800CEC08C /* Info.plist */,
+				989665391F20123B00B7CE5C /* APIManager.swift */,
+				9896653B1F201D2A00B7CE5C /* UIImageViewExtension.swift */,
 			);
 			path = "GoGo Lists";
+			sourceTree = "<group>";
+		};
+		989665321F1E677D00B7CE5C /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9818DC321F0B310800CEC08C /* IntroViewController.swift */,
+				98C9F85D1F16A451006F2DCD /* AddListViewController.swift */,
+				9813FA841F19363C0037F0D3 /* AddItemViewController.swift */,
+				989665301F1E674D00B7CE5C /* BarcodeScanningViewController.swift */,
+				9813FA821F19314A0037F0D3 /* ItemViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		989665331F1E679900B7CE5C /* Table View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				98C9F85F1F181A92006F2DCD /* IndividualListTableViewController.swift */,
+				989665371F1FFEAC00B7CE5C /* BuyingOptionsTableViewController.swift */,
+				98E7C8561F153E5500B24AF2 /* ListsTableViewController.swift */,
+			);
+			name = "Table View Controllers";
+			sourceTree = "<group>";
+		};
+		989665341F1E67C500B7CE5C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9813FA8B1F1D39DE0037F0D3 /* ItemTableViewCell.swift */,
+				989665351F1FFE8C00B7CE5C /* BuyingOptionsTableViewCell.swift */,
+				98C9F8611F183449006F2DCD /* ListTableViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		98C9F85C1F154419006F2DCD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				989665321F1E677D00B7CE5C /* View Controllers */,
+				989665331F1E679900B7CE5C /* Table View Controllers */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		B26D5FC2EA48EB991A417E14 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				36EA6E89DD595B6C494B45E1 /* Pods-GoGo Lists.debug.xcconfig */,
+				8668BAD1C9B049788F99D1EB /* Pods-GoGo Lists.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +180,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9818DC3F1F0B310800CEC08C /* Build configuration list for PBXNativeTarget "GoGo Lists" */;
 			buildPhases = (
+				C8D1EAD8E8F70DF947B7D52A /* [CP] Check Pods Manifest.lock */,
 				9818DC291F0B310800CEC08C /* Sources */,
 				9818DC2A1F0B310800CEC08C /* Frameworks */,
 				9818DC2B1F0B310800CEC08C /* Resources */,
+				E6DB8F6342499FD2A633A541 /* [CP] Embed Pods Frameworks */,
+				48DE238F26018DA4941CBE5B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -96,7 +208,7 @@
 				TargetAttributes = {
 					9818DC2C1F0B310800CEC08C = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 752NJF78ZT;
+						DevelopmentTeam = 6H25GX37P8;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -124,20 +236,83 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9818DC3B1F0B310800CEC08C /* LaunchScreen.storyboard in Resources */,
 				9818DC381F0B310800CEC08C /* Assets.xcassets in Resources */,
+				9803217C1F0FF6A9006EA4BB /* GoogleService-Info.plist in Resources */,
 				9818DC361F0B310800CEC08C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		48DE238F26018DA4941CBE5B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoGo Lists/Pods-GoGo Lists-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8D1EAD8E8F70DF947B7D52A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E6DB8F6342499FD2A633A541 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoGo Lists/Pods-GoGo Lists-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9818DC291F0B310800CEC08C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9818DC331F0B310800CEC08C /* ViewController.swift in Sources */,
+				9896653A1F20123B00B7CE5C /* APIManager.swift in Sources */,
+				9813FA881F1986090037F0D3 /* Item.swift in Sources */,
+				989665311F1E674D00B7CE5C /* BarcodeScanningViewController.swift in Sources */,
+				989665361F1FFE8C00B7CE5C /* BuyingOptionsTableViewCell.swift in Sources */,
+				98C9F8621F183449006F2DCD /* ListTableViewCell.swift in Sources */,
+				9813FA831F19314A0037F0D3 /* ItemViewController.swift in Sources */,
+				989665381F1FFEAC00B7CE5C /* BuyingOptionsTableViewController.swift in Sources */,
+				9804F8641F13F1F1005036A9 /* User.swift in Sources */,
+				9813FA8C1F1D39DE0037F0D3 /* ItemTableViewCell.swift in Sources */,
+				98C9F85E1F16A451006F2DCD /* AddListViewController.swift in Sources */,
+				98C9F8601F181A93006F2DCD /* IndividualListTableViewController.swift in Sources */,
+				9813FA8A1F1D1B440037F0D3 /* List.swift in Sources */,
+				9813FA851F19363C0037F0D3 /* AddItemViewController.swift in Sources */,
+				9896653C1F201D2A00B7CE5C /* UIImageViewExtension.swift in Sources */,
+				98E7C8571F153E5500B24AF2 /* ListsTableViewController.swift in Sources */,
+				9818DC331F0B310800CEC08C /* IntroViewController.swift in Sources */,
 				9818DC311F0B310800CEC08C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -151,14 +326,6 @@
 				9818DC351F0B310800CEC08C /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		9818DC391F0B310800CEC08C /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9818DC3A1F0B310800CEC08C /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -259,26 +426,32 @@
 		};
 		9818DC401F0B310800CEC08C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36EA6E89DD595B6C494B45E1 /* Pods-GoGo Lists.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 752NJF78ZT;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 6H25GX37P8;
 				INFOPLIST_FILE = "GoGo Lists/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Olivia-Corrodi.GoGo-Lists";
+				PRODUCT_BUNDLE_IDENTIFIER = com.OliviaCorrodi.TheWalkingSleep;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		9818DC411F0B310800CEC08C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8668BAD1C9B049788F99D1EB /* Pods-GoGo Lists.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 752NJF78ZT;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 6H25GX37P8;
 				INFOPLIST_FILE = "GoGo Lists/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Olivia-Corrodi.GoGo-Lists";
+				PRODUCT_BUNDLE_IDENTIFIER = com.OliviaCorrodi.TheWalkingSleep;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -302,6 +475,7 @@
 				9818DC411F0B310800CEC08C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

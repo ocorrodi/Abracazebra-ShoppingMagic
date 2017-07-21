@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>315369534790-j5d5t1jlufpcudp7j2m06q0uvnq8et2o.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.315369534790-j5d5t1jlufpcudp7j2m06q0uvnq8et2o</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCy8HiF10MOEUfSdliURcPYX7cLCqGzBLg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>315369534790</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.Olivia-Corrodi.GoGoLists</string>
+	<key>PROJECT_ID</key>
+	<string>gogolists-661cd</string>
+	<key>STORAGE_BUCKET</key>
+	<string>gogolists-661cd.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:315369534790:ios:7c6a622626343940</string>
+	<key>DATABASE_URL</key>
+	<string>https://gogolists-661cd.firebaseio.com</string>
+</dict>
+</plist>
