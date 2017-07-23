@@ -1,14 +1,14 @@
 //
-//  ListTableViewCell.swift
+//  FavoritesTableViewCell.swift
 //  GoGo Lists
 //
-//  Created by Victoria Corrodi on 7/13/17.
+//  Created by Victoria Corrodi on 7/22/17.
 //  Copyright © 2017 Olivia Corrodi. All rights reserved.
 //
 
 import UIKit
 
-class ListTableViewCell: UITableViewCell {
+class FavoritesTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,10 +19,6 @@ class ListTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }
-    
-    static func disableButton() {
-        
     }
 
 }

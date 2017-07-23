@@ -23,11 +23,13 @@ class APIManager {
                 if let value = response.result.value {
                     let json = JSON(value)
                     
-                    let item = Item(json: json)
-                    
-                    if item != nil {
+                    if let item = Item(json: json) {
                         completionHandler(nil, item)
-                    } else {
+                    }
+                    
+//                    if item != nil {
+//                        completionHandler(nil, item)
+                    else  {
                         errorMessage = "Failed to initialize item with json."
                         completionHandler(errorMessage, nil)
                     }

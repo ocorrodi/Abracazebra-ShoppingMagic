@@ -1,48 +1,17 @@
 //
-//  BuyingOptionsTableViewController.swift
+//  FavoritesTableViewController.swift
 //  GoGo Lists
 //
-//  Created by Victoria Corrodi on 7/19/17.
+//  Created by Victoria Corrodi on 7/22/17.
 //  Copyright © 2017 Olivia Corrodi. All rights reserved.
 //
 
 import UIKit
+import Firebase
+import FirebaseAuthUI
 
-class BuyingOptionsTableViewController: UITableViewController, BuyingOptionsTableViewCellProtocol {
-    
-    var item: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: "", buyingOptions: [[" "]], favorite: false)
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(item)
-        let cell = tableView.dequeueReusableCell(withIdentifier: "buyCell", for: indexPath) as! BuyingOptionsTableViewCell
-        
-        cell.row = indexPath.row
-        cell.delegate = self
-        let oneList = item.buyingOptions[indexPath.row]
-        print(oneList)
-        if oneList != [" "] {
-            cell.merchantLabel.text = oneList[0]
-            if oneList[2] == "0.00" {
-                cell.sellingPriceLabel.text = "not available"
-            }
-            else {
-                cell.sellingPriceLabel.text = "price: \(oneList[2])"
-            }
-        }
-        else {
-           cell.merchantLabel.text = ""
-            cell.sellingPriceLabel.text = ""
-        }
-        return cell
-    }
-    
-    func sendRow(row: Int) {
-        let itemToBuy = item.buyingOptions[row][1]
-        
-        UIApplication.shared.open(URL(string: itemToBuy)!, options: [:], completionHandler: nil)
-    }
+class FavoritesTableViewController: UITableViewController {
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -67,13 +36,34 @@ class BuyingOptionsTableViewController: UITableViewController, BuyingOptionsTabl
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if item.buyingOptions[0].count == 1 {
-            return 0
-        }
-        else {
-            return item.buyingOptions.count
-        }
+        return 1
     }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell")
+        
+        return cell!
+    }
+    
+    func getItems(completion: @escaping ([Item]) -> Void) {
+        let user = Auth.auth().currentUser
+        let ref = Database.database().reference().child("users").child(user!.uid).child("lists").child("favorites and recents")
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let valueList = snapshot.value as? NSDictionary as? [String: [String : Any]] {
+                var itemsToPass = [Item]()
+                for item in valueList.keys {
+                    let buyingOptions2 = valueList[item]!["buyingOptions"]! as? NSArray as? [[String]]
+                    print(valueList[item]!["favorite"] as! Bool)
+                    print(item)
+                    itemsToPass.append(Item(title: item, brand: valueList[item]!["brand"]! as! String,price: valueList[item]!["price"]! as! String, barcode: valueList[item]!["barcode"]! as! String, imageURL: valueList[item]!["imageURL"]! as! String, buyingOptions: buyingOptions2!, favorite: valueList[item]!["favorite"] as! Bool))
+                    }
+                return completion(itemsToPass)
+            } else {
+                return completion([])
+            }
+        })
+        
+    }
+
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

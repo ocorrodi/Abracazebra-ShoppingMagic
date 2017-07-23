@@ -20,7 +20,23 @@ class IndividualListTableViewController: UITableViewController {
     var listTitle: String = ""
     var listIndex: Int = 0
     var items: [Item] = []
-    var itemSelected: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: " ", buyingOptions: [[" "]])
+    var itemSelected: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: " ", buyingOptions: [[" "]], favorite: false)
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if listTitle == "favorites/recents" {
+            self.getItems { (retrievedItems) in
+                self.items = retrievedItems
+            }
+            var recentItems = self.items.filter { $0.favorite }
+            if recentItems.count >= 10 {
+                recentItems.remove(at: 10)
+                
+            }
+            tableView.reloadData()
+
+        }
+    }
+    
     
     override func viewDidLoad() {
         
@@ -93,8 +109,9 @@ class IndividualListTableViewController: UITableViewController {
                 for item in valueList.keys {
                     if item != "dummyItemName" {
                         let buyingOptions2 = valueList[item]!["buyingOptions"]! as? NSArray as? [[String]]
-    
-                        itemsToPass.append(Item(title: item, brand: valueList[item]!["brand"]! as! String, price: valueList[item]!["price"]! as! String, barcode: valueList[item]!["barcode"]! as! String, imageURL: valueList[item]!["imageURL"]! as! String, buyingOptions: buyingOptions2!))
+                        print(valueList[item]!["favorite"] as! Bool)
+                        print(item)
+                        itemsToPass.append(Item(title: item, brand: valueList[item]!["brand"]! as! String, price: valueList[item]!["price"]! as! String, barcode: valueList[item]!["barcode"]! as! String, imageURL: valueList[item]!["imageURL"]! as! String, buyingOptions: buyingOptions2!, favorite: valueList[item]!["favorite"] as! Bool))
                     }
                 }
                 print(itemsToPass)

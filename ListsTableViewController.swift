@@ -19,6 +19,8 @@ class ListsTableViewController: UITableViewController {
     var newList = List(title: "", items: [])
     var editedList = List(title: "", items: [])
     var indexPath2: Int = 0
+    let user = Auth.auth().currentUser
+
     
     
     override func viewDidLoad() {
@@ -37,52 +39,13 @@ class ListsTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print(newList.title)
-        let user = Auth.auth().currentUser
-        if newList.title != "" {
-            let ref = Database.database().reference().child("users").child(user!.uid).child("lists")
-            ref.updateChildValues([newList.title : ["this is a list, press the + button to add items" : ["price" : "price", "barcode" : "barcode", "brand" : "brand", "imageURL" : "imageURL", "buyingOptions" : [[" "]]]]])
-            getLists(completion: { (retrievedLists) in
-                self.lists = retrievedLists
-                self.tableView.reloadData()
-            })
-            newList.title = ""
-        }
-        if editedList.title != "" {
-            let listEdited = lists[indexPath2]
-            print(listEdited.title)
-            let ref = Database.database().reference().child("users").child(user!.uid).child("lists").child(listEdited.title)
-            ref.observeSingleEvent(of: .value, with: { snapshot in
-                if let valueDictionary = snapshot.value as? NSDictionary as? [String: [String: String]] {
-                    print(valueDictionary)
-                    ref.setValue(nil)
-                    let ref2 = Database.database().reference().child("users").child(user!.uid).child("lists")
-                    ref2.updateChildValues([self.editedList.title : valueDictionary])
-                    self.getLists(completion: { (retrievedLists) in
-                        self.lists = retrievedLists
-                        self.tableView.reloadData()
-                    })
-                    self.editedList.title = ""
-
-                //["dummyItemName" : ["price" : "price", "barcode" : "barcode", "brand" : "brand"]]])
-
-//            lists[indexPath2].title = editedList.title
-//            lists.remove(at: indexPath2)
-//            lists.append(editedList)
-                }
-            })
-        }
+        self.getLists(completion: { (retrievedLists) in
+            self.lists = retrievedLists
+            self.tableView.reloadData()
+        })
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "toAddList" {
-             let destinationVC2 = segue.destination as! AddListViewController
-            destinationVC2.addList = true
-        }
-        if segue.identifier == "editList" {
-             let destinationVC2 = segue.destination as! AddListViewController
-            destinationVC2.editList = true
-        }
         if segue.identifier == "showList" {
             let destinationVC3 = segue.destination as! IndividualListTableViewController
             print(listSelectedTitle)
@@ -92,17 +55,56 @@ class ListsTableViewController: UITableViewController {
     }
     
     @IBAction func newListButtonTapped(_ sender: Any) {
-        self.performSegue(withIdentifier: "toAddList", sender: self)
+        let alertController = UIAlertController(title: "Add List", message: "please enter a name for the new list", preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "save", style: .default, handler: {
+            alert -> Void in
+            let newListTextField = alertController.textFields![0] as UITextField
+            
+            if let newList = newListTextField.text {
+                let ref = Database.database().reference().child("users").child(self.user!.uid).child("lists")
+                ref.updateChildValues([newList : ["this is a list, press the + button to add items" : ["price" : "price", "barcode" : "barcode", "brand" : "brand", "imageURL" : "imageURL", "buyingOptions" : [[" "]], "favorite" : false]]])
+                self.getLists(completion: { (retrievedLists) in
+                    self.lists = retrievedLists
+                    self.tableView.reloadData()
+                })
+
+            }
+        })
+            
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: {
+            alert -> Void in
+            alertController.dismiss(animated: true, completion: nil)
+            
+            })
+
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        alertController.addTextField { (textField: UITextField) -> Void in
+        }
+        self.present(alertController, animated: true, completion: nil)
+        
+        //self.performSegue(withIdentifier: "toAddList", sender: self)
     }
     
     @IBAction func logOutButtonPressed(_ sender: Any) {
-        performSegue(withIdentifier: "unwindSegueToIntro", sender: self)
-        do {
-            try Auth.auth().signOut()
-        }
-        catch let error as NSError {
-            assertionFailure("Error signing out: \(error.localizedDescription)")
-        }
+        let alertController = UIAlertController(title: "Are you sure?", message: "Do you really want to logout?", preferredStyle: .alert)
+        let continueAction = UIAlertAction(title: "Continue", style: .default, handler: {
+            alert -> Void in
+            self.performSegue(withIdentifier: "unwindSegueToIntro", sender: self)
+            do {
+                try Auth.auth().signOut()
+            }
+            catch let error as NSError {
+                assertionFailure("Error signing out: \(error.localizedDescription)")
+            }
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { alert -> Void in
+            alertController.dismiss(animated: true, completion: nil)
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(continueAction)
+        self.present(alertController, animated: true, completion: nil)
+        
     }
     
 
@@ -186,9 +188,45 @@ class ListsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         indexPath2 = indexPath.row
-        performSegue(withIdentifier: "editList", sender: nil)
-
+        let listEdited = self.lists[self.indexPath2]
+        if listEdited.title != "favorites and recents" {
+            let alertController = UIAlertController(title: "Edit List", message: "please enter the new name for the list", preferredStyle: .alert)
+            let saveAction = UIAlertAction(title: "save", style: .default, handler: {
+                alert -> Void in
+                let newListTextField = alertController.textFields![0] as UITextField
+            
+                if let newList = newListTextField.text {
+                    let ref = Database.database().reference().child("users").child(self.user!.uid).child("lists").child(listEdited.title)
+                    ref.observeSingleEvent(of: .value, with: { snapshot in
+                        if let valueDictionary = snapshot.value as? NSDictionary as? [String: [String: Any]] {
+                            print(valueDictionary)
+                            ref.setValue(nil)
+                            let ref2 = Database.database().reference().child("users").child(self.user!.uid).child("lists")
+                            ref2.updateChildValues([newList : valueDictionary])
+                            self.getLists(completion: { (retrievedLists) in
+                                self.lists = retrievedLists
+                                self.tableView.reloadData()
+                            })
+                        }
+                    })
+                    
+                }
+            })
         
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: {
+            alert -> Void in
+            alertController.dismiss(animated: true, completion: nil)
+        
+            
+        })
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        alertController.addTextField { (textField: UITextField) -> Void in
+            self.present(alertController, animated: true, completion: nil)
+        }
+    
+    }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -198,3 +236,4 @@ class ListsTableViewController: UITableViewController {
     }
     
 }
+

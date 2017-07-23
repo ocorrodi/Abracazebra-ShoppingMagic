@@ -83,7 +83,7 @@ extension IntroViewController: FUIAuthDelegate {
     func authUI(_ authUI: FUIAuth, didSignInWith user: FIRUser?, error: Error?) {
         
         if let error = error {
-            assertionFailure("Error signing in: \(error.localizedDescription)")
+            print("Error signing in: \(error.localizedDescription)")
             return
         }
         

@@ -29,13 +29,14 @@ class ItemViewController: UIViewController {
     @IBOutlet weak var itemImageView: UIImageView!
     
     
-    var item: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: " ", buyingOptions: [[" "]])
+    var item: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: " ", buyingOptions: [[" "]], favorite: false)
     var listTitle: String = " "
     var itemIndex = 0
     var barcodeScanned = ""
     var oldItemTitle = ""
     var buyingOptions: [[String]] = [[]]
     var editingTheItem = false
+    var favorite = false
     
     
     @IBAction func showBuyingOptionsButtonPressed(_ sender: Any) {
@@ -49,6 +50,7 @@ class ItemViewController: UIViewController {
         print(item)
         if editingTheItem {
             oldItemTitle = item.title
+            favorite = item.favorite
         }
         if barcodeScanned != "" {
 //            apiCall()
@@ -61,12 +63,18 @@ class ItemViewController: UIViewController {
                 
                 if errorMessage == nil {
                     self.item = item!
+                    if item?.title == "" {
+                        self.showErrorAlert(message: "Item not found")
+                    }
                     print(item?.buyingOptions)
                     self.titeTextField.text = item?.title
                     self.brandTextField.text = item?.title
                     self.priceTextField.text = item?.price
                     self.barcodeTextField.text = item?.barcode
-                    self.itemImageView.downloadedFrom(url: URL(string: item!.imageURLString)!)
+                    item?.favorite = false
+                    if item?.imageURLString != "" {
+                        self.itemImageView.downloadedFrom(url: URL(string: item!.imageURLString)!)
+                    }
                 } else {
                     self.showErrorAlert(message: errorMessage!)
                 }
@@ -99,9 +107,20 @@ class ItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        // Do any additional setup after loading the view.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        
+        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+        //tap.cancelsTouchesInView = false
+        
+        view.addGestureRecognizer(tap)
     }
+    
+    //Calls this function when the tap is recognized.
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -171,11 +190,26 @@ class ItemViewController: UIViewController {
         ref.updateChildValues(["barcode" : item.barcode])
         ref.updateChildValues(["imageURL" : item.imageURLString])
         ref.updateChildValues(["buyingOptions" : item.buyingOptions])
-        let ref2 = Database.database().reference().child("items").child(item.barcode)
+        ref.updateChildValues(["favorite" : item.favorite])
+        if favorite {
+            ref.updateChildValues(["favorite" : true])
+        }
+        else {
+            ref.updateChildValues(["favorite" : false])
+
+        }
+        let ref2 = Database.database().reference().child("users").child(user!.uid).child("lists").child("favorite and recent items").child(item.title)
         ref2.updateChildValues(["brand" : item.brand])
         ref2.updateChildValues(["price" : item.price])
-        ref2.updateChildValues(["title" : item.title])
+        ref2.updateChildValues(["barcode" : item.barcode])
         ref2.updateChildValues(["buyingOptions" : item.buyingOptions])
+        ref2.updateChildValues(["imageURL" : item.imageURLString])
+        if favorite {
+            ref2.updateChildValues(["favorite" : true])
+        }
+        else {
+            ref2.updateChildValues(["favorite" : false])
+        }
     
         performSegue(withIdentifier: "unwindToList", sender: self)
     }
@@ -218,7 +252,7 @@ class ItemViewController: UIViewController {
             case .failure(let error):
                 print(error)
                 let alertController = UIAlertController(title: "Something went wrong", message:
-                    "Please check your internet connection", preferredStyle: UIAlertControllerStyle.alert)
+                    "Item not found", preferredStyle: UIAlertControllerStyle.alert)
                 alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
                 
                 self.present(alertController, animated: true, completion: nil)
@@ -240,6 +274,63 @@ class ItemViewController: UIViewController {
             let destinationVC = segue.destination as! BuyingOptionsTableViewController
             destinationVC.item = item
         }
+    }
+
+    @IBAction func addToFavoritesButtonPressed(_ sender: Any) {
+        if priceTextField.text != "" {
+            item.price = priceTextField.text!
+        }
+        else {
+            item.price = " "
+        }
+        
+        
+        if titeTextField.text != "" {
+            item.title = titeTextField.text!
+        }
+        else {
+            print("not filled in!")
+            item.title = " "
+        }
+        item.brand = brandTextField.text!
+        if item.brand == "" {
+            item.brand = " "
+        }
+        item.barcode = barcodeTextField.text!
+        if item.barcode == "" {
+            item.barcode = " "
+        }
+        let user = Auth.auth().currentUser
+        let listIndex = "\(itemIndex)"
+        //let ref = Database.database().reference().child("users").child((user?.uid)!).child("lists").child(listTitle).child("items").child(itemTitle)
+        let databaseReference = Database.database().reference()
+        
+        item.title = (item.title as NSString).replacingOccurrences(of: ".", with: ",")
+        print(item.title)
+        print(listTitle)
+        let ref = databaseReference.child("users").child(user!.uid).child("lists").child(listTitle).child(item.title)
+        print(oldItemTitle)
+        if oldItemTitle != "" {
+            let deletingRef = databaseReference.child("users").child(user!.uid).child("lists").child(listTitle).child(oldItemTitle)
+            deletingRef.removeValue()
+            
+        }
+
+        item.favorite = true
+        print(item.title)
+        let ref2 = Database.database().reference().child("users").child(user!.uid).child("lists").child("favorites and recents").child(item.title)
+        ref2.updateChildValues(["brand" : item.brand])
+        ref2.updateChildValues(["price" : item.price])
+        ref2.updateChildValues(["barcode" : item.barcode])
+        ref2.updateChildValues(["buyingOptions" : item.buyingOptions])
+        ref2.updateChildValues(["favorite" : item.favorite])
+        ref2.updateChildValues(["imageURL" : item.imageURLString])
+
+    }
+    
+
+    @IBAction func userTappedBackground(sender: AnyObject) {
+        view.endEditing(true)
     }
     
     

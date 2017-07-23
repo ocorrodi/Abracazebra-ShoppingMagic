@@ -82,7 +82,6 @@
                             <color key="tintColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="logOutButtonPressed:" destination="bq5-aD-IC6" id="RbY-Oy-a2X"/>
-                                <segue destination="iGY-K5-8HM" kind="unwind" identifier="unwindToLists" unwindAction="unwindToIntroWithSegue:" id="OQ4-py-eDE"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="b2y-Nj-0tB">
@@ -93,9 +92,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="heB-7s-KNn" kind="push" identifier="toAddList" id="JpG-0T-hY9"/>
-                        <segue destination="heB-7s-KNn" kind="show" identifier="editList" id="q0p-0a-5gd"/>
                         <segue destination="Q9w-ge-tF1" kind="show" identifier="showList" id="Qb5-ta-6BV"/>
+                        <segue destination="iGY-K5-8HM" kind="unwind" identifier="unwindSegueToIntro" unwindAction="unwindToIntroWithSegue:" id="9Hj-ZY-IUm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DD0-Dd-LBv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -144,7 +142,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ezD-39-54C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1720.8" y="1047.5262368815593"/>
+            <point key="canvasLocation" x="4396" y="260"/>
         </scene>
         <!--Add Item View Controller-->
         <scene sceneID="VCH-sy-VgV">
@@ -196,6 +194,9 @@
                                         <state key="normal" title="Select from Favorites">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="Vcy-6I-FeX" kind="show" identifier="selectFromFavorites" id="cFD-uO-QH9"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -212,7 +213,42 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lq7-Zc-H03" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2669.5999999999999" y="1047.5262368815593"/>
+            <point key="canvasLocation" x="1721" y="1076"/>
+        </scene>
+        <!--Favorites and Recents-->
+        <scene sceneID="nTk-lR-RFX">
+            <objects>
+                <tableViewController id="Vcy-6I-FeX" customClass="FavoritesTableViewController" customModule="GoGo_Lists" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="n91-qi-rsq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoriteCell" id="rQh-pw-Ad0" customClass="FavoritesTableViewCell" customModule="GoGo_Lists" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rQh-pw-Ad0" id="8tR-ae-nVK">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfp-xC-vcT">
+                                            <rect key="frame" x="321" y="10" width="22" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Vcy-6I-FeX" id="ga2-4G-PsG"/>
+                            <outlet property="delegate" destination="Vcy-6I-FeX" id="vh6-dc-szn"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Favorites and Recents" id="Cxh-7n-3dC"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OME-1c-jZV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1721" y="1804"/>
         </scene>
         <!--showBuyingOptions-->
         <scene sceneID="UuY-0W-7wF">
@@ -276,7 +312,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m8q-2B-4IW">
-                                <rect key="frame" x="68" y="356" width="240" height="128"/>
+                                <rect key="frame" x="68" y="327" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qr1-vO-9Pl">
@@ -288,6 +324,17 @@
                                 </state>
                                 <connections>
                                     <action selector="showBuyingOptionsButtonPressed:" destination="0NG-gK-eh9" eventType="touchUpInside" id="bHP-V1-sqT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cp0-ZV-C5U">
+                                <rect key="frame" x="68" y="474" width="240" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="☆ Add to Favorites ☆">
+                                    <color key="titleColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="addToFavoritesButtonPressed:" destination="0NG-gK-eh9" eventType="touchUpInside" id="hWa-pg-z3q"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -314,7 +361,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="luN-PX-fUp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="iJv-7n-bK3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3608.8000000000002" y="1047.5262368815593"/>
+            <point key="canvasLocation" x="2671" y="1075"/>
         </scene>
         <!--Buying Options-->
         <scene sceneID="Od0-C6-SuN">
@@ -375,7 +422,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cWS-eN-gLR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3648.8000000000002" y="1832.833583208396"/>
+            <point key="canvasLocation" x="4396" y="1075"/>
         </scene>
         <!--Barcode Scanning View Controller-->
         <scene sceneID="TJk-1g-Z0j">
@@ -396,65 +443,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o41-Hf-GBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4396" y="1048"/>
-        </scene>
-        <!--toIndividualL-->
-        <scene sceneID="YgW-0v-Njd">
-            <objects>
-                <viewController title="toIndividualL" id="heB-7s-KNn" customClass="AddListViewController" customModule="GoGo_Lists" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="aYu-9e-Z5f"/>
-                        <viewControllerLayoutGuide type="bottom" id="ykQ-PF-prg"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Dfw-cn-WNY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="9Bm-aj-0jY">
-                                <rect key="frame" x="68" y="291" width="239" height="85.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter a name for this list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OzD-R3-U67">
-                                        <rect key="frame" x="0.0" y="0.0" width="239" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter List Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="baC-15-gHK">
-                                        <rect key="frame" x="0.0" y="55.5" width="239" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="239" id="uQu-wh-atz"/>
-                                        </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="9Bm-aj-0jY" firstAttribute="centerX" secondItem="Dfw-cn-WNY" secondAttribute="centerX" id="EN4-to-V6z"/>
-                            <constraint firstItem="9Bm-aj-0jY" firstAttribute="centerY" secondItem="Dfw-cn-WNY" secondAttribute="centerY" id="yuG-Nn-Znm"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Add List" id="sNQ-Cd-Bth">
-                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="done" id="B56-3Y-w3l">
-                            <color key="tintColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="doneButtonPressed:" destination="heB-7s-KNn" id="CJK-an-rwq"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="listTitleText" destination="baC-15-gHK" id="Qnx-ea-ODE"/>
-                        <segue destination="8fV-4z-zLR" kind="unwind" identifier="toLists" unwindAction="unwindToListsWithSegue:" id="rsP-p7-m0u"/>
-                        <segue destination="8fV-4z-zLR" kind="unwind" identifier="backToLists" unwindAction="unwindToLists2WithSegue:" id="MdK-sp-ltG"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TKn-aQ-xUF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="8fV-4z-zLR" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="4446" y="260"/>
+            <point key="canvasLocation" x="3610" y="1075"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2lB-Jk-JFZ">
@@ -482,7 +471,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vvI-ib-mew"/>
-        <segue reference="q0p-0a-5gd"/>
+        <segue reference="dWy-5C-LLp"/>
     </inferredMetricsTieBreakers>
 </document>
