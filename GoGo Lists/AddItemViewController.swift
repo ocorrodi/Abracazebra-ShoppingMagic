@@ -34,6 +34,10 @@ class AddItemViewController: UIViewController {
             destinationVC.listTitle = self.listTitle
 
         }
+        if segue.identifier == "toFavorites" {
+            let destinationVC = segue.destination as! FavoritesTableViewController
+            destinationVC.listTitle = self.listTitle
+        }
 //        destinationVC.itemIndex = self.itemIndex
     }
     

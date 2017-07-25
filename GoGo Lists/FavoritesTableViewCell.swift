@@ -8,8 +8,24 @@
 
 import UIKit
 
-class FavoritesTableViewCell: UITableViewCell {
+protocol FavoritesTableViewCellProtocol: class {
+    func addThisItemToAList(cell: FavoritesTableViewCell)
+}
 
+
+class FavoritesTableViewCell: UITableViewCell {
+    
+//    var row: Int!
+    
+    @IBOutlet weak var addItemButton: UIButton!
+    
+    @IBOutlet weak var itemLabel: UILabel!
+    
+    weak var delegate: FavoritesTableViewCellProtocol?
+
+    @IBAction func addItemButtonTapped(_ sender: Any) {
+        delegate?.addThisItemToAList(cell: self)
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

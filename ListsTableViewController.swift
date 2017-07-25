@@ -15,15 +15,21 @@ class ListsTableViewController: UITableViewController {
     
     var listSelectedTitle: String = ""
     
+    @IBOutlet weak var activityView: UIActivityIndicatorView!
+    
     var lists = [List]()
     var newList = List(title: "", items: [])
     var editedList = List(title: "", items: [])
     var indexPath2: Int = 0
     let user = Auth.auth().currentUser
 
+    @IBOutlet weak var listTitleLabel: UILabel!
     
     
     override func viewDidLoad() {
+ //       UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Chalkboard SE", size: 25)!]
+//        self.navigationController?.navigationBar.tintColor = UIColor .white
+        
         super.viewDidLoad()
         getLists { (retrievedLists) in
             self.lists = retrievedLists
@@ -43,6 +49,7 @@ class ListsTableViewController: UITableViewController {
             self.lists = retrievedLists
             self.tableView.reloadData()
         })
+        self.activityView.isHidden = true
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -62,7 +69,7 @@ class ListsTableViewController: UITableViewController {
             
             if let newList = newListTextField.text {
                 let ref = Database.database().reference().child("users").child(self.user!.uid).child("lists")
-                ref.updateChildValues([newList : ["this is a list, press the + button to add items" : ["price" : "price", "barcode" : "barcode", "brand" : "brand", "imageURL" : "imageURL", "buyingOptions" : [[" "]], "favorite" : false]]])
+                ref.updateChildValues([newList : ["press + to add items, swipe left to delete" : ["price" : "price", "barcode" : "barcode", "brand" : "brand", "imageURL" : "imageURL", "buyingOptions" : [[" "]], "favorite" : false]]])
                 self.getLists(completion: { (retrievedLists) in
                     self.lists = retrievedLists
                     self.tableView.reloadData()
@@ -122,6 +129,8 @@ class ListsTableViewController: UITableViewController {
     }
     
     func getLists(completion: @escaping ([List]) -> Void) {
+        self.activityView.isHidden = false
+        self.activityView.startAnimating()
         let user = Auth.auth().currentUser
         let ref = Database.database().reference().child("users").child(user!.uid).child("lists")
         ref.observeSingleEvent(of: .value, with: { snapshot in
@@ -138,8 +147,13 @@ class ListsTableViewController: UITableViewController {
                     listsToPass.append(list)
                 }
                 
+                self.activityView.isHidden = true
+                self.activityView.stopAnimating()
+                
                 return completion(listsToPass)
             } else {
+                self.activityView.isHidden = true
+                self.activityView.stopAnimating()
                 completion([])
             }
         })
@@ -147,7 +161,7 @@ class ListsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
-        if lists.count != nil {
+        if lists != nil {
             return lists.count
             
         } else {
@@ -159,7 +173,7 @@ class ListsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListTableViewCell
         print(lists)
         let oneList = lists[indexPath.row]
-        cell.textLabel?.text = oneList.title
+        cell.listTitleLabel.text = oneList.title
         return cell
     }
     @IBAction func unwindToLists(segue:UIStoryboardSegue) {

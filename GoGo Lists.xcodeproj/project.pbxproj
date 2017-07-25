@@ -20,6 +20,11 @@
 		9818DC331F0B310800CEC08C /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9818DC321F0B310800CEC08C /* IntroViewController.swift */; };
 		9818DC361F0B310800CEC08C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9818DC341F0B310800CEC08C /* Main.storyboard */; };
 		9818DC381F0B310800CEC08C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9818DC371F0B310800CEC08C /* Assets.xcassets */; };
+		9821E1CC1F268A09006581A8 /* icons8-Barcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 9821E1CB1F268A09006581A8 /* icons8-Barcode.png */; };
+		9821E1CE1F2697A5006581A8 /* icons8-Editing Icons Align Text Left.png in Resources */ = {isa = PBXBuildFile; fileRef = 9821E1CD1F2697A5006581A8 /* icons8-Editing Icons Align Text Left.png */; };
+		9821E1D01F26992C006581A8 /* icons8-Christmas Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 9821E1CF1F26992C006581A8 /* icons8-Christmas Star.png */; };
+		9821E1D21F2699E1006581A8 /* icons8-Star-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 9821E1D11F2699E1006581A8 /* icons8-Star-26.png */; };
+		9821E1D61F26EFA5006581A8 /* WalmartAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9821E1D51F26EFA5006581A8 /* WalmartAPIManager.swift */; };
 		989665311F1E674D00B7CE5C /* BarcodeScanningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989665301F1E674D00B7CE5C /* BarcodeScanningViewController.swift */; };
 		989665361F1FFE8C00B7CE5C /* BuyingOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989665351F1FFE8C00B7CE5C /* BuyingOptionsTableViewCell.swift */; };
 		989665381F1FFEAC00B7CE5C /* BuyingOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989665371F1FFEAC00B7CE5C /* BuyingOptionsTableViewController.swift */; };
@@ -50,6 +55,11 @@
 		9818DC351F0B310800CEC08C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9818DC371F0B310800CEC08C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9818DC3C1F0B310800CEC08C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9821E1CB1F268A09006581A8 /* icons8-Barcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-Barcode.png"; path = "../../../.Trash/icons8-Barcode.png"; sourceTree = "<group>"; };
+		9821E1CD1F2697A5006581A8 /* icons8-Editing Icons Align Text Left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-Editing Icons Align Text Left.png"; path = "../../../Downloads/Downloaded-2/icons8-Editing Icons Align Text Left.png"; sourceTree = "<group>"; };
+		9821E1CF1F26992C006581A8 /* icons8-Christmas Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-Christmas Star.png"; path = "../../../Downloads/Downloaded-3/icons8-Christmas Star.png"; sourceTree = "<group>"; };
+		9821E1D11F2699E1006581A8 /* icons8-Star-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-Star-26.png"; path = "../../../Downloads/icons8-Star-26.png"; sourceTree = "<group>"; };
+		9821E1D51F26EFA5006581A8 /* WalmartAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalmartAPIManager.swift; sourceTree = "<group>"; };
 		989665301F1E674D00B7CE5C /* BarcodeScanningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScanningViewController.swift; sourceTree = "<group>"; };
 		989665351F1FFE8C00B7CE5C /* BuyingOptionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyingOptionsTableViewCell.swift; sourceTree = "<group>"; };
 		989665371F1FFEAC00B7CE5C /* BuyingOptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyingOptionsTableViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +122,10 @@
 			isa = PBXGroup;
 			children = (
 				9818DC301F0B310800CEC08C /* AppDelegate.swift */,
+				9821E1CB1F268A09006581A8 /* icons8-Barcode.png */,
+				9821E1CF1F26992C006581A8 /* icons8-Christmas Star.png */,
+				9821E1CD1F2697A5006581A8 /* icons8-Editing Icons Align Text Left.png */,
+				9821E1D11F2699E1006581A8 /* icons8-Star-26.png */,
 				989665341F1E67C500B7CE5C /* Views */,
 				98C9F85C1F154419006F2DCD /* Controllers */,
 				9813FA861F1985A90037F0D3 /* Models */,
@@ -120,6 +134,7 @@
 				9803217B1F0FF6A9006EA4BB /* GoogleService-Info.plist */,
 				9818DC3C1F0B310800CEC08C /* Info.plist */,
 				989665391F20123B00B7CE5C /* APIManager.swift */,
+				9821E1D51F26EFA5006581A8 /* WalmartAPIManager.swift */,
 				9896653B1F201D2A00B7CE5C /* UIImageViewExtension.swift */,
 			);
 			path = "GoGo Lists";
@@ -139,9 +154,9 @@
 		989665331F1E679900B7CE5C /* Table View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				98E7C8561F153E5500B24AF2 /* ListsTableViewController.swift */,
 				98C9F85F1F181A92006F2DCD /* IndividualListTableViewController.swift */,
 				989665371F1FFEAC00B7CE5C /* BuyingOptionsTableViewController.swift */,
-				98E7C8561F153E5500B24AF2 /* ListsTableViewController.swift */,
 				9811D18B1F23F8730050F30F /* FavoritesTableViewController.swift */,
 			);
 			name = "Table View Controllers";
@@ -240,8 +255,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				9818DC381F0B310800CEC08C /* Assets.xcassets in Resources */,
+				9821E1CE1F2697A5006581A8 /* icons8-Editing Icons Align Text Left.png in Resources */,
 				9803217C1F0FF6A9006EA4BB /* GoogleService-Info.plist in Resources */,
+				9821E1CC1F268A09006581A8 /* icons8-Barcode.png in Resources */,
 				9818DC361F0B310800CEC08C /* Main.storyboard in Resources */,
+				9821E1D01F26992C006581A8 /* icons8-Christmas Star.png in Resources */,
+				9821E1D21F2699E1006581A8 /* icons8-Star-26.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +334,7 @@
 				9813FA8A1F1D1B440037F0D3 /* List.swift in Sources */,
 				9813FA851F19363C0037F0D3 /* AddItemViewController.swift in Sources */,
 				9896653C1F201D2A00B7CE5C /* UIImageViewExtension.swift in Sources */,
+				9821E1D61F26EFA5006581A8 /* WalmartAPIManager.swift in Sources */,
 				98E7C8571F153E5500B24AF2 /* ListsTableViewController.swift in Sources */,
 				9818DC331F0B310800CEC08C /* IntroViewController.swift in Sources */,
 				9818DC311F0B310800CEC08C /* AppDelegate.swift in Sources */,

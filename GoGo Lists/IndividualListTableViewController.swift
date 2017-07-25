@@ -16,6 +16,7 @@ class IndividualListTableViewController: UITableViewController {
     
     
     @IBOutlet weak var navigationControllerTitle: UINavigationItem!
+    @IBOutlet weak var activityView: UIActivityIndicatorView!
     
     var listTitle: String = ""
     var listIndex: Int = 0
@@ -23,14 +24,21 @@ class IndividualListTableViewController: UITableViewController {
     var itemSelected: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: " ", buyingOptions: [[" "]], favorite: false)
     
     override func viewWillAppear(_ animated: Bool) {
+        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Chalkboard SE", size: 25)!]
+        self.navigationController?.navigationBar.tintColor = UIColor .white
+
+        self.activityView.isHidden = true
+        let user = Auth.auth().currentUser
         if listTitle == "favorites/recents" {
             self.getItems { (retrievedItems) in
                 self.items = retrievedItems
             }
-            var recentItems = self.items.filter { $0.favorite }
-            if recentItems.count >= 10 {
+            var recentItems = self.items.filter { $0.favorite != true }
+            var favoriteItems = self.items.filter { $0.favorite }
+            if recentItems.count > 10 {
+                let ref = Database.database().reference().child("users").child(user!.uid).child("lists").child("favorites and recents").child(recentItems[10].title)
+                ref.setValue(nil)
                 recentItems.remove(at: 10)
-                
             }
             tableView.reloadData()
 
@@ -95,12 +103,14 @@ class IndividualListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemTableViewCell
         let oneList = items[indexPath.row]
-        cell.textLabel?.text = oneList.title
+        cell.itemTitleLabel.text = oneList.title
         return cell
     }
 
     
     func getItems(completion: @escaping ([Item]) -> Void) {
+        self.activityView.isHidden = false
+        self.activityView.startAnimating()
         let user = Auth.auth().currentUser
         let ref = Database.database().reference().child("users").child(user!.uid).child("lists").child(listTitle)
         ref.observeSingleEvent(of: .value, with: { snapshot in
@@ -115,9 +125,12 @@ class IndividualListTableViewController: UITableViewController {
                     }
                 }
                 print(itemsToPass)
-                
+                self.activityView.isHidden = true
+                self.activityView.stopAnimating()
                 return completion(itemsToPass)
             } else {
+                self.activityView.isHidden = true
+                self.activityView.stopAnimating()
                 return completion([])
             }
         })

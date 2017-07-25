@@ -33,14 +33,11 @@ class Item {
     init?(json: JSON) {
         
         var buyingOptions: [[String]] = []
-        
+        let barcode = self.barcode
        guard let title = json["items"][0]["title"].string,
-            let barcode = json["items"][0]["upc"].string,
-            let price = json["items"][0]["lowest_recorded_price"].double,
-            let brand = json["items"][0]["brand"].string,
         let imageURLString = json["items"][0]["images"][0].string
         else {
-            return
+            return nil
         }
         if json["items"][0]["offers"].count != 0 {
             for x in 0...(json["items"][0]["offers"].count)-1 {
@@ -48,17 +45,35 @@ class Item {
             }
         }
         
+        if let thePrice = json["items"][0]["lowest_recorded_price"].double, String(thePrice) != "0.00"  {
+            self.price = String(thePrice)
+        }
+        else{
+            self.price = "not available"
+        }
+         
+
+        var brand2 = ""
+        if json["items"][0]["brand"].string != nil {
+            brand2 = json["items"][0]["brand"].string!
+            
+        }
+        else {
+            brand2 = "not available"
+        }
+
+        
 
         
         self.title = title
-        self.brand = brand
+        //self.brand = brand
+        self.brand = brand2
+
         
-        if price <= 0 {
-            self.price = "not available"
-        }
-        else {
-            self.price = String(format: "%.2f", price)
-        }
+//        if price <= 0 {
+//            self.price = "not available"
+//        }
+//        self.price = String(format: "%.2f", price)
         self.barcode = barcode
         self.imageURLString = imageURLString
         self.buyingOptions = buyingOptions

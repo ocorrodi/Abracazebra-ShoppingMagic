@@ -28,6 +28,9 @@ class ItemViewController: UIViewController {
     
     @IBOutlet weak var itemImageView: UIImageView!
     
+    @IBOutlet weak var favoriteButton: UIButton!
+    
+    
     
     var item: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: " ", buyingOptions: [[" "]], favorite: false)
     var listTitle: String = " "
@@ -44,6 +47,8 @@ class ItemViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Chalkboard SE", size: 25)!, NSForegroundColorAttributeName: UIColor.white]
+
         if item.imageURLString != " " {
             self.itemImageView.downloadedFrom(url: URL(string: item.imageURLString)!)
         }
@@ -68,9 +73,9 @@ class ItemViewController: UIViewController {
                     }
                     print(item?.buyingOptions)
                     self.titeTextField.text = item?.title
-                    self.brandTextField.text = item?.title
+                    self.brandTextField.text = item?.brand
                     self.priceTextField.text = item?.price
-                    self.barcodeTextField.text = item?.barcode
+                    self.barcodeTextField.text = self.barcodeScanned
                     item?.favorite = false
                     if item?.imageURLString != "" {
                         self.itemImageView.downloadedFrom(url: URL(string: item!.imageURLString)!)
@@ -93,11 +98,16 @@ class ItemViewController: UIViewController {
             barcodeTextField.text = item.barcode
             
         }
-        
+        if item.favorite == true {
+            favoriteButton.isEnabled = false
+        }
+        else {
+            favoriteButton.isEnabled = true
+        }
     }
     
     func showErrorAlert(message: String) {
-        let alertController = UIAlertController(title: "Error.", message:
+        let alertController = UIAlertController(title: "Error", message:
             message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         
@@ -153,7 +163,6 @@ class ItemViewController: UIViewController {
             item.barcode = " "
         }
         let user = Auth.auth().currentUser
-        let listIndex = "\(itemIndex)"
         //let ref = Database.database().reference().child("users").child((user?.uid)!).child("lists").child(listTitle).child("items").child(itemTitle)
         let databaseReference = Database.database().reference()
         
@@ -198,7 +207,7 @@ class ItemViewController: UIViewController {
             ref.updateChildValues(["favorite" : false])
 
         }
-        let ref2 = Database.database().reference().child("users").child(user!.uid).child("lists").child("favorite and recent items").child(item.title)
+        let ref2 = Database.database().reference().child("users").child(user!.uid).child("lists").child("favorites and recents").child(item.title)
         ref2.updateChildValues(["brand" : item.brand])
         ref2.updateChildValues(["price" : item.price])
         ref2.updateChildValues(["barcode" : item.barcode])
@@ -233,7 +242,7 @@ class ItemViewController: UIViewController {
                     
                     
                     self.loadImage(imageURLString: imageURLString)
-                    if price == 0 {
+                    if price <= 0 {
                         price = "not available"
                     }
                     self.item.price = "\(price)"
@@ -325,7 +334,14 @@ class ItemViewController: UIViewController {
         ref2.updateChildValues(["buyingOptions" : item.buyingOptions])
         ref2.updateChildValues(["favorite" : item.favorite])
         ref2.updateChildValues(["imageURL" : item.imageURLString])
-
+        
+        let alertController = UIAlertController(title: "Done!", message: "\(item.title) has been added to favorites!", preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: { (UIAlertAction) -> Void in
+            alertController.dismiss(animated: true, completion: nil)
+        })
+        alertController.addAction(dismissAction)
+        self.present(alertController, animated: true, completion: nil)
+        favoriteButton.isEnabled = false
     }
     
 

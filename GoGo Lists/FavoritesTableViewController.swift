@@ -10,7 +10,11 @@ import UIKit
 import Firebase
 import FirebaseAuthUI
 
-class FavoritesTableViewController: UITableViewController {
+class FavoritesTableViewController: UITableViewController, FavoritesTableViewCellProtocol {
+    
+    var items: [Item] = []
+    var listTitle = ""
+    var itemToAdd: Item!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +25,25 @@ class FavoritesTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Chalkboard SE", size: 25)!]
+        self.navigationController?.navigationBar.tintColor = UIColor .white
+
+        getItems { (retrievedItems) in
+            self.items = retrievedItems
+            self.tableView.reloadData()
+        }
+
+    }
+    
+    func addThisItemToAList(cell: FavoritesTableViewCell) {
+        let indexPath = tableView.indexPath(for: cell)
+        let itemToAdd = items[(indexPath?.row)! ?? 0]
+        self.itemToAdd = itemToAdd
+        performSegue(withIdentifier: "showFavorite", sender: self)
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -36,12 +59,16 @@ class FavoritesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return items.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell", for: indexPath) as! FavoritesTableViewCell
+        let oneCell = items[indexPath.row]
+        cell.delegate = self
+        cell.itemLabel.text = oneCell.title
         
-        return cell!
+        
+        return cell
     }
     
     func getItems(completion: @escaping ([Item]) -> Void) {
@@ -62,6 +89,31 @@ class FavoritesTableViewController: UITableViewController {
             }
         })
         
+    }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+
+        if editingStyle == .delete {
+            let user = Auth.auth().currentUser
+            let index = indexPath[1]
+            let favoriteToBeDeleted = items[index]
+            print(favoriteToBeDeleted.title)
+            let ref = Database.database().reference().child("users").child((user?.uid)!).child("lists").child("favorites and recents").child(favoriteToBeDeleted.title)
+            items.remove(at: index)
+            tableView.reloadData()
+            ref.setValue(nil)
+        }
+    }
+
+
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showFavorite" {
+            let destinationVC = segue.destination as! ItemViewController
+            destinationVC.item = itemToAdd
+            destinationVC.listTitle = listTitle
+            destinationVC.favorite = true
+        }
     }
 
 

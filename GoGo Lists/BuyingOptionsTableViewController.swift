@@ -74,6 +74,12 @@ class BuyingOptionsTableViewController: UITableViewController, BuyingOptionsTabl
             return item.buyingOptions.count
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Chalkboard SE", size: 25)!]
+        self.navigationController?.navigationBar.tintColor = UIColor .white
+
+    }
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
