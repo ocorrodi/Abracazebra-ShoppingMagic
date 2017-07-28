@@ -32,14 +32,16 @@ class ItemViewController: UIViewController {
     
     
     
-    var item: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: " ", buyingOptions: [[" "]], favorite: false)
-    var listTitle: String = " "
+    var item: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: " ", buyingOptions: [], favorite: false)
+    var listTitle: List?
     var itemIndex = 0
     var barcodeScanned = ""
     var oldItemTitle = ""
     var buyingOptions: [[String]] = [[]]
     var editingTheItem = false
+    var isAPublicItem = false
     var favorite = false
+
     
     
     @IBAction func showBuyingOptionsButtonPressed(_ sender: Any) {
@@ -143,39 +145,47 @@ class ItemViewController: UIViewController {
             item.price = priceTextField.text!
         }
         else {
-            item.price = " "
+            item.price = "not entered"
         }
-    
-
+        
+        
         if titeTextField.text != "" {
             item.title = titeTextField.text!
         }
         else {
             print("not filled in!")
-            item.title = " "
+            item.title = "not entered"
         }
         item.brand = brandTextField.text!
         if item.brand == "" {
-            item.brand = " "
+            item.brand = "not entered"
         }
         item.barcode = barcodeTextField.text!
         if item.barcode == "" {
-            item.barcode = " "
+            item.barcode = "not entered"
         }
         let user = Auth.auth().currentUser
-        //let ref = Database.database().reference().child("users").child((user?.uid)!).child("lists").child(listTitle).child("items").child(itemTitle)
+        //let ref =Database.database().reference().child("users").child((user?.uid)!).child("lists").child(listTitle).chid("items").child(itemTitle)
         let databaseReference = Database.database().reference()
         
         item.title = (item.title as NSString).replacingOccurrences(of: ".", with: ",")
         print(item.title)
         print(listTitle)
-        let ref = databaseReference.child("users").child(user!.uid).child("lists").child(listTitle).child(item.title)
+        let ref = databaseReference.child("users").child(user!.uid).child("lists").child((listTitle?.uid)!).child(item.title)
         print(oldItemTitle)
+        //deleting old item from private lists if it exists
         if oldItemTitle != "" {
-            let deletingRef = databaseReference.child("users").child(user!.uid).child("lists").child(listTitle).child(oldItemTitle)
+            let deletingRef = databaseReference.child("users").child(user!.uid).child("lists").child((listTitle?.uid)!).child(oldItemTitle)
             deletingRef.removeValue()
+                
+        }
+        var buyingOptionsList = [String : [String : Any]]()
+        for (index, buyingOptionItem) in item.buyingOptions.enumerated() {
+            let objectDict = buyingOptionItem.convertObjectToDictionary()
+            buyingOptionsList[String(index)] = objectDict
             
         }
+
         
 
         
@@ -194,32 +204,68 @@ class ItemViewController: UIViewController {
 //            print(returnedSnapshot)
 //        })
         
-        ref.updateChildValues(["brand" : item.brand])
-        ref.updateChildValues(["price" : item.price])
-        ref.updateChildValues(["barcode" : item.barcode])
-        ref.updateChildValues(["imageURL" : item.imageURLString])
-        ref.updateChildValues(["buyingOptions" : item.buyingOptions])
-        ref.updateChildValues(["favorite" : item.favorite])
-        if favorite {
-            ref.updateChildValues(["favorite" : true])
-        }
-        else {
-            ref.updateChildValues(["favorite" : false])
+            //updating user's private lists with new/updated item
+        
+            ref.updateChildValues(["brand" : item.brand])
+            ref.updateChildValues(["price" : item.price])
+            ref.updateChildValues(["barcode" : item.barcode])
+            ref.updateChildValues(["imageURL" : item.imageURLString])
+            ref.updateChildValues(["buyingOptions" : buyingOptionsList])
+            ref.updateChildValues(["favorite" : item.favorite])
+            if favorite {
+                ref.updateChildValues(["favorite" : true])
+            }
+            else {
+                ref.updateChildValues(["favorite" : false])
+                
+            }
+        
+        //updating recents
+            let ref2 = Database.database().reference().child("users").child(user!.uid).child("lists").child("favorites and recents").child(item.title)
+            ref2.updateChildValues(["brand" : item.brand])
+            ref2.updateChildValues(["price" : item.price])
+            ref2.updateChildValues(["barcode" : item.barcode])
+            ref2.updateChildValues(["buyingOptions" : buyingOptionsList])
+            ref2.updateChildValues(["imageURL" : item.imageURLString])
+            if favorite {
+                ref2.updateChildValues(["favorite" : true])
+            }
+            else {
+                ref2.updateChildValues(["favorite" : false])
+            }
+            let ref3 = Database.database().reference().child((user?.uid)!).child("lists").child((listTitle?.uid)!)
+            ref3.observeSingleEvent(of: .value, with: { snapshot in
+                if let valueDict = snapshot.value as? NSDictionary as? [String : Any] {
+                    if valueDict["isPublic"] as! Bool == true {
+                        let ref4 = databaseReference.child("public lists").child((self.listTitle?.uid)!).child(self.item.title)
+                        if self.oldItemTitle != "" {
+                            ref4.removeValue()
+                        }
+                        ref4.updateChildValues(["brand" : self.item.brand])
+                        ref4.updateChildValues(["price" : self.item.price])
+                        ref4.updateChildValues(["barcode" : self.item.barcode])
+                        ref4.updateChildValues(["imageURL" : self.item.imageURLString])
+                        ref4.updateChildValues(["buyingOptions" : buyingOptionsList])
+                        ref4.updateChildValues(["favorite" : false])
+                    }
+                
+                }
+                
+            })
+        
+        //updating public reference with item if list is public
+        if isAPublicItem {
+            let publicRef = Database.database().reference().child("public lists").child((listTitle?.uid)!).child(item.title)
+            publicRef.removeValue()
+            publicRef.updateChildValues(["brand" : item.brand])
+            publicRef.updateChildValues(["price" : item.price])
+            publicRef.updateChildValues(["barcode" : item.barcode])
+            publicRef.updateChildValues(["imageURL" : item.imageURLString])
+            publicRef.updateChildValues(["buyingOptions" : item.buyingOptions])
+            publicRef.updateChildValues(["favorite" : false])
 
         }
-        let ref2 = Database.database().reference().child("users").child(user!.uid).child("lists").child("favorites and recents").child(item.title)
-        ref2.updateChildValues(["brand" : item.brand])
-        ref2.updateChildValues(["price" : item.price])
-        ref2.updateChildValues(["barcode" : item.barcode])
-        ref2.updateChildValues(["buyingOptions" : item.buyingOptions])
-        ref2.updateChildValues(["imageURL" : item.imageURLString])
-        if favorite {
-            ref2.updateChildValues(["favorite" : true])
-        }
-        else {
-            ref2.updateChildValues(["favorite" : false])
-        }
-    
+        
         performSegue(withIdentifier: "unwindToList", sender: self)
     }
     
@@ -317,23 +363,33 @@ class ItemViewController: UIViewController {
         item.title = (item.title as NSString).replacingOccurrences(of: ".", with: ",")
         print(item.title)
         print(listTitle)
-        let ref = databaseReference.child("users").child(user!.uid).child("lists").child(listTitle).child(item.title)
+        let ref = databaseReference.child("users").child(user!.uid).child("lists").child((listTitle?.uid)!).child(item.title)
         print(oldItemTitle)
         if oldItemTitle != "" {
-            let deletingRef = databaseReference.child("users").child(user!.uid).child("lists").child(listTitle).child(oldItemTitle)
+            let deletingRef = databaseReference.child("users").child(user!.uid).child("lists").child((listTitle?.uid)!).child(oldItemTitle)
             deletingRef.removeValue()
             
         }
 
         item.favorite = true
         print(item.title)
+        let ref3 = Database.database().reference().child("users").child(user!.uid).child("lists").child("favorites and recents")
         let ref2 = Database.database().reference().child("users").child(user!.uid).child("lists").child("favorites and recents").child(item.title)
+        var buyingOptionsList = [String : [String : Any]]()
+        for (index, buyingOptionItem) in item.buyingOptions.enumerated() {
+            let objectDict = buyingOptionItem.convertObjectToDictionary()
+            buyingOptionsList[String(index)] = objectDict
+            
+        }
         ref2.updateChildValues(["brand" : item.brand])
         ref2.updateChildValues(["price" : item.price])
         ref2.updateChildValues(["barcode" : item.barcode])
-        ref2.updateChildValues(["buyingOptions" : item.buyingOptions])
+        ref2.updateChildValues(["buyingOptions" : buyingOptionsList])
         ref2.updateChildValues(["favorite" : item.favorite])
         ref2.updateChildValues(["imageURL" : item.imageURLString])
+        
+        ref3.updateChildValues(["name" : "favorites and recents"])
+
         
         let alertController = UIAlertController(title: "Done!", message: "\(item.title) has been added to favorites!", preferredStyle: .alert)
         let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: { (UIAlertAction) -> Void in

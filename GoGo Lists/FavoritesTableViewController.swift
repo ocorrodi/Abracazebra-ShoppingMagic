@@ -13,8 +13,9 @@ import FirebaseAuthUI
 class FavoritesTableViewController: UITableViewController, FavoritesTableViewCellProtocol {
     
     var items: [Item] = []
-    var listTitle = ""
+    var listTitle: List?
     var itemToAdd: Item!
+    var isAPublicItem = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,11 +78,17 @@ class FavoritesTableViewController: UITableViewController, FavoritesTableViewCel
         ref.observeSingleEvent(of: .value, with: { snapshot in
             if let valueList = snapshot.value as? NSDictionary as? [String: [String : Any]] {
                 var itemsToPass = [Item]()
-                for item in valueList.keys {
-                    let buyingOptions2 = valueList[item]!["buyingOptions"]! as? NSArray as? [[String]]
-                    print(valueList[item]!["favorite"] as! Bool)
-                    print(item)
-                    itemsToPass.append(Item(title: item, brand: valueList[item]!["brand"]! as! String,price: valueList[item]!["price"]! as! String, barcode: valueList[item]!["barcode"]! as! String, imageURL: valueList[item]!["imageURL"]! as! String, buyingOptions: buyingOptions2!, favorite: valueList[item]!["favorite"] as! Bool))
+                for (key,value) in valueList {
+                    var buyingOptions2 = [BuyingOption]()
+
+                    var buyersDict = value["buyingOptions"] as! [String : Any]
+                    for (buyerKey, buyerValue) in buyersDict{
+                        let thingWeWant = buyerValue as! [String : Any]
+                        buyingOptions2.append(BuyingOption(dictionary: thingWeWant))
+                    }
+                    
+                    //let buyingOptions2 = BuyingOption(dictionary: [])//valueList[item]!["buyingOptions"]! as? NSArray as? [[String]]
+                    itemsToPass.append(Item(title: value["title"] as! String, brand: value["brand"]! as! String,price: value["price"]! as! String, barcode: value["barcode"]! as! String, imageURL: value["imageURL"]! as! String, buyingOptions: buyingOptions2, favorite: value["favorite"] as! Bool))
                     }
                 return completion(itemsToPass)
             } else {
@@ -113,6 +120,10 @@ class FavoritesTableViewController: UITableViewController, FavoritesTableViewCel
             destinationVC.item = itemToAdd
             destinationVC.listTitle = listTitle
             destinationVC.favorite = true
+            if isAPublicItem {
+                destinationVC.isAPublicItem = true
+            }
+
         }
     }
 

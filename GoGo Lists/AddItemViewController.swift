@@ -10,8 +10,9 @@ import UIKit
 
 class AddItemViewController: UIViewController {
     
-    var listTitle: String = ""
+    var listTitle: List?
     var itemIndex = 0
+    var isAPublicItem = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,16 +28,27 @@ class AddItemViewController: UIViewController {
         if segue.identifier == "addByText" {
             let destinationVC = segue.destination as! ItemViewController
             destinationVC.listTitle = self.listTitle
+            if isAPublicItem {
+                destinationVC.isAPublicItem = true
+            }
 
         }
         if segue.identifier == "toBarcodeScanner" {
             let destinationVC = segue.destination as! BarcodeScanningViewController
-            destinationVC.listTitle = self.listTitle
+            destinationVC.listTitle = listTitle
+            if isAPublicItem {
+                destinationVC.isAPublicItem = true
+            }
+
 
         }
         if segue.identifier == "toFavorites" {
             let destinationVC = segue.destination as! FavoritesTableViewController
-            destinationVC.listTitle = self.listTitle
+            destinationVC.listTitle = listTitle
+            if isAPublicItem {
+                destinationVC.isAPublicItem = true
+            }
+
         }
 //        destinationVC.itemIndex = self.itemIndex
     }

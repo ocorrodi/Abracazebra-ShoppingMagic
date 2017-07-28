@@ -13,15 +13,23 @@ import FirebaseAuthUI
 
 class ListsTableViewController: UITableViewController {
     
-    var listSelectedTitle: String = ""
+    var selectedList: List?
     
     @IBOutlet weak var activityView: UIActivityIndicatorView!
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
+    @IBOutlet weak var addNewListButton: UIBarButtonItem!
+    
+    
     var lists = [List]()
-    var newList = List(title: "", items: [])
-    var editedList = List(title: "", items: [])
+    var newList = List(title: "", items: [], uid: "")
+    var editedList = List(title: "", items: [], uid: "")
     var indexPath2: Int = 0
     let user = Auth.auth().currentUser
+    var publicLists = false
+    var privateLists = true
+
 
     @IBOutlet weak var listTitleLabel: UILabel!
     
@@ -31,9 +39,18 @@ class ListsTableViewController: UITableViewController {
 //        self.navigationController?.navigationBar.tintColor = UIColor .white
         
         super.viewDidLoad()
-        getLists { (retrievedLists) in
-            self.lists = retrievedLists
-            self.tableView.reloadData()
+        if publicLists {
+            getPublicLists(completion: { (retrievedLists) in
+                self.lists = retrievedLists
+                self.tableView.reloadData()
+            })
+        }
+        else {
+            getPrivateLists(completion: { (retrievedLists) in
+                self.lists = retrievedLists
+                self.tableView.reloadData()
+            })
+
         }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -45,18 +62,29 @@ class ListsTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.getLists(completion: { (retrievedLists) in
-            self.lists = retrievedLists
-            self.tableView.reloadData()
-        })
+        if publicLists {
+            getPublicLists(completion: { (retrievedLists) in
+                self.lists = retrievedLists
+                self.tableView.reloadData()
+            })
+        }
+        else {
+            getPrivateLists(completion: { (retrievedLists) in
+                self.lists = retrievedLists
+                self.tableView.reloadData()
+            })
+        }
         self.activityView.isHidden = true
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "showList" {
             let destinationVC3 = segue.destination as! IndividualListTableViewController
-            print(listSelectedTitle)
-            destinationVC3.listTitle = listSelectedTitle
+            print(selectedList)
+            destinationVC3.currentList = selectedList
+            if publicLists {
+                destinationVC3.isAPublicItem = true
+            }
 //            destinationVC3.listIndex = lists.index(of: listSelectedTitle)!
         }
     }
@@ -68,9 +96,12 @@ class ListsTableViewController: UITableViewController {
             let newListTextField = alertController.textFields![0] as UITextField
             
             if let newList = newListTextField.text {
-                let ref = Database.database().reference().child("users").child(self.user!.uid).child("lists")
-                ref.updateChildValues([newList : ["press + to add items, swipe left to delete" : ["price" : "price", "barcode" : "barcode", "brand" : "brand", "imageURL" : "imageURL", "buyingOptions" : [[" "]], "favorite" : false]]])
-                self.getLists(completion: { (retrievedLists) in
+                let ref = Database.database().reference().child("users").child(self.user!.uid).child("lists").childByAutoId()
+                let ref2 = Database.database().reference().child("users").child(self.user!.uid)
+                ref2.updateChildValues(["email" : self.user?.email])
+                
+                ref.updateChildValues(["press + to add items, swipe left to delete" : ["price" : "price", "barcode" : "barcode", "brand" : "brand", "imageURL" : "imageURL", "buyingOptions" : ["lkj":["merchant":" bob", "price" : 0, "link" : " "]], "favorite" : false], "isPublic" : false, "name" : newList])
+                self.getPrivateLists(completion: { (retrievedLists) in
                     self.lists = retrievedLists
                     self.tableView.reloadData()
                 })
@@ -128,23 +159,40 @@ class ListsTableViewController: UITableViewController {
         return 1
     }
     
-    func getLists(completion: @escaping ([List]) -> Void) {
+    func getPrivateLists(completion: @escaping ([List]) -> Void) {
         self.activityView.isHidden = false
         self.activityView.startAnimating()
         let user = Auth.auth().currentUser
         let ref = Database.database().reference().child("users").child(user!.uid).child("lists")
         ref.observeSingleEvent(of: .value, with: { snapshot in
-            if let valueDictionary = snapshot.value as? NSDictionary as? [String: [String : Any]] {
+            if let valueDictionary = snapshot.value as? NSDictionary as? [String: Any] {
                 var listsToPass = [List]()
                 
-                for child in valueDictionary.keys {
-                    let list = List(title: child, items: [])
-//                    for item in valueDictionary[child]!.keys {
-//                        let item = Item(title: item, brand: valueDictionary[child]![item]!["brand"]!, price: valueDictionary[child]![item]!["price"]!, barcode: valueDictionary[child]![item]!["barcode"]!, imageURL: valueDictionary[child]![item]!["imageURL"]!, buyingOptions: [[]])
-//                        list.items.append(item)
-//                    }
+                for (key, value) in valueDictionary{//child in valueDictionary.keys {
+                    var dictionary = value as! [String : Any]
+                    
+                    if let title = dictionary["name"] as? String{
+                        let list = List(title: title, items: [], uid: key)
+                        
+                        
+                        //                    for item in valueDictionary[child]!.keys {
+                        //                        let item = Item(title: item, brand: valueDictionary[child]![item]!["brand"]!, price: valueDictionary[child]![item]!["price"]!, barcode: valueDictionary[child]![item]!["barcode"]!, imageURL: valueDictionary[child]![item]!["imageURL"]!, buyingOptions: [[]])
+                        //                        list.items.append(item)
+                        //                    }
+                        if key != "isPublic" {
+                            
+                            listsToPass.append(list)
+                        }
 
-                    listsToPass.append(list)
+                    }
+                    else{
+                        let title = "favorites and recents"
+                        let list = List(title: title, items: [], uid: title)
+                        if key != "isPublic" {
+                            
+                            listsToPass.append(list)
+                        }
+                    }
                 }
                 
                 self.activityView.isHidden = true
@@ -158,6 +206,38 @@ class ListsTableViewController: UITableViewController {
             }
         })
     }
+    func getPublicLists(completion: @escaping ([List]) -> Void) {
+        self.activityView.isHidden = false
+        self.activityView.startAnimating()
+        let user = Auth.auth().currentUser
+        let ref = Database.database().reference().child("public lists")
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let valueDictionary = snapshot.value as? NSDictionary as? [String: Any] {
+                var listsToPass = [List]()
+                
+                for child in valueDictionary.keys {
+                    let list = List(title: child, items: [], uid: child)
+                    //                    for item in valueDictionary[child]!.keys {
+                    //                        let item = Item(title: item, brand: valueDictionary[child]![item]!["brand"]!, price: valueDictionary[child]![item]!["price"]!, barcode: valueDictionary[child]![item]!["barcode"]!, imageURL: valueDictionary[child]![item]!["imageURL"]!, buyingOptions: [[]])
+                    //                        list.items.append(item)
+                    //                    }
+                    if child != "isPublic" {
+                        listsToPass.append(list)
+                    }
+                }
+                
+                self.activityView.isHidden = true
+                self.activityView.stopAnimating()
+                
+                return completion(listsToPass)
+            } else {
+                self.activityView.isHidden = true
+                self.activityView.stopAnimating()
+                completion([])
+            }
+        })
+    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
@@ -186,14 +266,14 @@ class ListsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         // 2
-        if editingStyle == .delete {
+        if editingStyle == .delete, publicLists == false {
             let user = Auth.auth().currentUser
             let index = indexPath[1]
             print(index)
             print(lists)
             let listToBeDeleted = lists[index]
-            print(listToBeDeleted.title)
-            let ref = Database.database().reference().child("users").child((user?.uid)!).child("lists").child(listToBeDeleted.title)
+            print(listToBeDeleted.uid)
+            let ref = Database.database().reference().child("users").child((user?.uid)!).child("lists").child(listToBeDeleted.uid)
             lists.remove(at: index)
             tableView.reloadData()
             ref.setValue(nil)
@@ -203,21 +283,30 @@ class ListsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         indexPath2 = indexPath.row
         let listEdited = self.lists[self.indexPath2]
-        if listEdited.title != "favorites and recents" {
+        if listEdited.title != "favorites and recents", privateLists == true {
             let alertController = UIAlertController(title: "Edit List", message: "please enter the new name for the list", preferredStyle: .alert)
+            
             let saveAction = UIAlertAction(title: "save", style: .default, handler: {
                 alert -> Void in
                 let newListTextField = alertController.textFields![0] as UITextField
             
                 if let newList = newListTextField.text {
-                    let ref = Database.database().reference().child("users").child(self.user!.uid).child("lists").child(listEdited.title)
+                    let ref = Database.database().reference().child("users").child(self.user!.uid).child("lists").child(listEdited.uid)
                     ref.observeSingleEvent(of: .value, with: { snapshot in
-                        if let valueDictionary = snapshot.value as? NSDictionary as? [String: [String: Any]] {
+                        if let valueDictionary = snapshot.value as? NSDictionary as? [String: Any] {
                             print(valueDictionary)
                             ref.setValue(nil)
-                            let ref2 = Database.database().reference().child("users").child(self.user!.uid).child("lists")
-                            ref2.updateChildValues([newList : valueDictionary])
-                            self.getLists(completion: { (retrievedLists) in
+                            let ref2 = Database.database().reference().child("users").child(self.user!.uid).child("lists").child(listEdited.uid)
+                            
+                            for (key,value) in valueDictionary {
+                                if key != "name" {
+                                    ref2.updateChildValues([key : value])
+                                } else {
+                                    ref2.updateChildValues(["name" : newList])
+                                }
+                                
+                            }
+                            self.getPrivateLists(completion: { (retrievedLists) in
                                 self.lists = retrievedLists
                                 self.tableView.reloadData()
                             })
@@ -244,9 +333,43 @@ class ListsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        listSelectedTitle = lists[indexPath.row].title
+        selectedList = lists[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: "showList", sender: nil)
+    }
+    
+    
+    @IBAction func segmentedControlChanged(_ sender: Any) {
+        
+        switch segmentedControl.selectedSegmentIndex
+        {
+        case 0:
+            print("private lists")
+            getPrivateLists { (retrievedLists) in
+                self.lists = retrievedLists
+                self.tableView.reloadData()
+            }
+            addNewListButton.isEnabled = true
+            privateLists = true
+            publicLists = false
+
+            
+            ;
+        case 1:
+            print("public lists")
+            getPublicLists { (retrievedLists) in
+                self.lists = retrievedLists
+                self.tableView.reloadData()
+            }
+            addNewListButton.isEnabled = false
+            publicLists = true
+            privateLists = false
+
+            
+            ;
+        default:
+            break; 
+        }
     }
     
 }

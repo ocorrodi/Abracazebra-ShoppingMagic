@@ -10,7 +10,7 @@ import UIKit
 
 class BuyingOptionsTableViewController: UITableViewController, BuyingOptionsTableViewCellProtocol {
     
-    var item: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: "", buyingOptions: [[" "]], favorite: false)
+    var item: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: "", buyingOptions: [], favorite: false)
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print(item)
@@ -20,26 +20,23 @@ class BuyingOptionsTableViewController: UITableViewController, BuyingOptionsTabl
         cell.delegate = self
         let oneList = item.buyingOptions[indexPath.row]
         print(oneList)
-        if oneList != [" "] {
-            cell.merchantLabel.text = oneList[0]
-            if oneList[2] == "0.00" {
-                cell.sellingPriceLabel.text = "not available"
-            }
-            else {
-                cell.sellingPriceLabel.text = "price: \(oneList[2])"
-            }
+        
+        cell.merchantLabel.text = oneList.name
+        if oneList.price == 0.00 {
+            cell.sellingPriceLabel.text = "not available"
         }
         else {
-           cell.merchantLabel.text = ""
-            cell.sellingPriceLabel.text = ""
+            cell.sellingPriceLabel.text = "price: \(oneList.price!)"
         }
+        
+
         return cell
     }
     
     func sendRow(row: Int) {
-        let itemToBuy = item.buyingOptions[row][1]
+        let itemToBuy = item.buyingOptions[row].link
         
-        UIApplication.shared.open(URL(string: itemToBuy)!, options: [:], completionHandler: nil)
+        UIApplication.shared.open(URL(string: itemToBuy!)!, options: [:], completionHandler: nil)
     }
 
     
@@ -67,12 +64,13 @@ class BuyingOptionsTableViewController: UITableViewController, BuyingOptionsTabl
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if item.buyingOptions[0].count == 1 {
+       /* if item.buyingOptions[0].count == 1 {
             return 0
         }
         else {
             return item.buyingOptions.count
-        }
+        } */
+        return item.buyingOptions.count
     }
     
     override func viewWillAppear(_ animated: Bool) {

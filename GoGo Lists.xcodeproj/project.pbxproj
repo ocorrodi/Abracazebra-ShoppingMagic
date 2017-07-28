@@ -20,6 +20,7 @@
 		9818DC331F0B310800CEC08C /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9818DC321F0B310800CEC08C /* IntroViewController.swift */; };
 		9818DC361F0B310800CEC08C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9818DC341F0B310800CEC08C /* Main.storyboard */; };
 		9818DC381F0B310800CEC08C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9818DC371F0B310800CEC08C /* Assets.xcassets */; };
+		9820E9261F2910FD00AF7ED4 /* BuyingOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9820E9251F2910FD00AF7ED4 /* BuyingOption.swift */; };
 		9821E1CC1F268A09006581A8 /* icons8-Barcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 9821E1CB1F268A09006581A8 /* icons8-Barcode.png */; };
 		9821E1CE1F2697A5006581A8 /* icons8-Editing Icons Align Text Left.png in Resources */ = {isa = PBXBuildFile; fileRef = 9821E1CD1F2697A5006581A8 /* icons8-Editing Icons Align Text Left.png */; };
 		9821E1D01F26992C006581A8 /* icons8-Christmas Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 9821E1CF1F26992C006581A8 /* icons8-Christmas Star.png */; };
@@ -55,6 +56,7 @@
 		9818DC351F0B310800CEC08C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9818DC371F0B310800CEC08C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9818DC3C1F0B310800CEC08C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9820E9251F2910FD00AF7ED4 /* BuyingOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyingOption.swift; sourceTree = "<group>"; };
 		9821E1CB1F268A09006581A8 /* icons8-Barcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-Barcode.png"; path = "../../../.Trash/icons8-Barcode.png"; sourceTree = "<group>"; };
 		9821E1CD1F2697A5006581A8 /* icons8-Editing Icons Align Text Left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-Editing Icons Align Text Left.png"; path = "../../../Downloads/Downloaded-2/icons8-Editing Icons Align Text Left.png"; sourceTree = "<group>"; };
 		9821E1CF1F26992C006581A8 /* icons8-Christmas Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-Christmas Star.png"; path = "../../../Downloads/Downloaded-3/icons8-Christmas Star.png"; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			children = (
 				9804F8631F13F1F1005036A9 /* User.swift */,
 				9813FA871F1986090037F0D3 /* Item.swift */,
+				9820E9251F2910FD00AF7ED4 /* BuyingOption.swift */,
 				9813FA891F1D1B430037F0D3 /* List.swift */,
 			);
 			name = Models;
@@ -327,6 +330,7 @@
 				9811D18C1F23F8730050F30F /* FavoritesTableViewController.swift in Sources */,
 				98C9F8621F183449006F2DCD /* ListTableViewCell.swift in Sources */,
 				9813FA831F19314A0037F0D3 /* ItemViewController.swift in Sources */,
+				9820E9261F2910FD00AF7ED4 /* BuyingOption.swift in Sources */,
 				989665381F1FFEAC00B7CE5C /* BuyingOptionsTableViewController.swift in Sources */,
 				9804F8641F13F1F1005036A9 /* User.swift in Sources */,
 				9813FA8C1F1D39DE0037F0D3 /* ItemTableViewCell.swift in Sources */,

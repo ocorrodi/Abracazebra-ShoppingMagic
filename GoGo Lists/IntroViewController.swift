@@ -98,7 +98,7 @@ extension IntroViewController: FUIAuthDelegate {
 
             } else {
                 //new user
-                userRef.updateChildValues(["uid" : user.uid])
+                userRef.updateChildValues(["uid" : user.uid, "email" : user.email])
             }
         })
         

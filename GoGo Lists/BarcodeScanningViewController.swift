@@ -29,7 +29,9 @@ class BarcodeScanningViewController: UIViewController, AVCaptureMetadataOutputOb
     
     var code: String? = ""
     
-    var listTitle = ""
+    var listTitle: List?
+    
+    var isAPublicItem = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,6 +110,10 @@ class BarcodeScanningViewController: UIViewController, AVCaptureMetadataOutputOb
             let destinationVC = segue.destination as! ItemViewController
             destinationVC.barcodeScanned = code!
             destinationVC.listTitle = listTitle
+            if isAPublicItem {
+                destinationVC.isAPublicItem = true
+            }
+
         }
     }
     

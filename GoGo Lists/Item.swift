@@ -16,10 +16,10 @@ class Item {
     var price: String = ""
     var barcode: String = ""
     var imageURLString: String = ""
-    var buyingOptions: [[String]] = [[]]
+    var buyingOptions: [BuyingOption] = []
     var favorite: Bool = false
     
-    init(title: String, brand: String, price: String, barcode: String, imageURL: String, buyingOptions: [[String]], favorite: Bool) {
+    init(title: String, brand: String, price: String, barcode: String, imageURL: String, buyingOptions: [BuyingOption], favorite: Bool) {
         self.title = title
         self.brand = brand
         self.price = price
@@ -32,7 +32,6 @@ class Item {
     
     init?(json: JSON) {
         
-        var buyingOptions: [[String]] = []
         let barcode = self.barcode
        guard let title = json["items"][0]["title"].string,
         let imageURLString = json["items"][0]["images"][0].string
@@ -41,8 +40,12 @@ class Item {
         }
         if json["items"][0]["offers"].count != 0 {
             for x in 0...(json["items"][0]["offers"].count)-1 {
-                buyingOptions.append([json["items"][0]["offers"][x]["merchant"].string!, json["items"][0]["offers"][x]["link"].string!, "\(json["items"][0]["offers"][x]["price"].double!)"])
+                let newBuyingOption = BuyingOption(name: json["items"][0]["offers"][x]["merchant"].string!, price: json["items"][0]["offers"][x]["price"].double!, link: json["items"][0]["offers"][x]["link"].string!)
+                buyingOptions.append(newBuyingOption)
+                
+                //buyingOptions.append([json["items"][0]["offers"][x]["merchant"].string!, json["items"][0]["offers"][x]["link"].string!, "\(json["items"][0]["offers"][x]["price"].double!)"])
             }
+
         }
         
         if let thePrice = json["items"][0]["lowest_recorded_price"].double, String(thePrice) != "0.00"  {
@@ -76,7 +79,6 @@ class Item {
 //        self.price = String(format: "%.2f", price)
         self.barcode = barcode
         self.imageURLString = imageURLString
-        self.buyingOptions = buyingOptions
         self.favorite = false
         
     }
