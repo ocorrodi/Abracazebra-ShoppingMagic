@@ -23,9 +23,9 @@ class IndividualListTableViewController: UITableViewController, MFMessageCompose
     var items: [Item] = []
     var itemSelected: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: " ", buyingOptions: [], favorite: false)
     var isAPublicItem = false
+    var emailAndUIDs: [String : String] = [:]
     
     override func viewWillAppear(_ animated: Bool) {
-        getEmailsAndUIDs { (emailsAndUID) in }
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Chalkboard SE", size: 25)!]
         self.navigationController?.navigationBar.tintColor = UIColor .white
 
@@ -299,10 +299,10 @@ class IndividualListTableViewController: UITableViewController, MFMessageCompose
         ref.observeSingleEvent(of: .value, with: { snapshot in
             if let valueList = snapshot.value as? NSDictionary as? [String : [String : Any]] {
                 var emailAndUIDDict: [String : String] = [:]
-                for (key, value) in valueList.enumerated() {
+                for (key, value) in valueList {
                     let uid = "\(key)"
-                    //let email = value["email"] as! String
-                    //emailAndUIDDict[uid] = email
+                    let email = value["email"] as! String
+                    emailAndUIDDict[email] = uid
                     
                 }
                 return completion(emailAndUIDDict)
@@ -320,18 +320,22 @@ class IndividualListTableViewController: UITableViewController, MFMessageCompose
         let alertController = UIAlertController(title: "Share List by UID", message: "Please enter a uid to share this list with. Your UID is : \(user!.uid)", preferredStyle: .alert)
             let sendAction = UIAlertAction(title: "Send", style: .default, handler: { [unowned self] (UIAlertAction) in
             let sharingTextField = alertController.textFields?[0] as! UITextField
-            let uidToShareWith = sharingTextField.text
+            let emailToShareWith = sharingTextField.text as! String
 
             let ref = Database.database().reference().child("users").child(user!.uid).child("lists").child((self.currentList?.uid)!)
-            ref.observeSingleEvent(of: .value, with: { [unowned self] snapshot in
-                if let valueList = snapshot.value as? NSDictionary as? [String: Any] {
-                    let ref2 = Database.database().reference().child("users").child(uidToShareWith!).child("lists").child((self.currentList?.uid)!)
+            self.getEmailsAndUIDs { (emailsAndUID) in
+                self.emailAndUIDs = emailsAndUID
+                let uidToShareWith = self.emailAndUIDs[emailToShareWith]
+                ref.observeSingleEvent(of: .value, with: { [unowned self] snapshot in
+                    if let valueList = snapshot.value as? NSDictionary as? [String: Any] {
+                        let ref2 = Database.database().reference().child("users").child(uidToShareWith!).child("lists").child((self.currentList?.uid)!)
                    // let childValues: [String: [String : [String : Any]]] = [uidToShareWith!: ["lists" : [(self.currentList?.uid)!: valueList]]]
 //                    ref2.updateChildValues(childValues)
-                    ref2.setValue(valueList)
+                        ref2.setValue(valueList)
+                    }
 
-                }
-            })
+                })
+            }
 
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in

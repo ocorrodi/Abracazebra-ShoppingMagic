@@ -33,6 +33,8 @@
 		9896653C1F201D2A00B7CE5C /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896653B1F201D2A00B7CE5C /* UIImageViewExtension.swift */; };
 		98C9F8601F181A93006F2DCD /* IndividualListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C9F85F1F181A92006F2DCD /* IndividualListTableViewController.swift */; };
 		98C9F8621F183449006F2DCD /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C9F8611F183449006F2DCD /* ListTableViewCell.swift */; };
+		98E4090D1F2BAEDF00C40457 /* icons8-Unlock-96.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E4090C1F2BAEDF00C40457 /* icons8-Unlock-96.png */; };
+		98E4090F1F2BAF3C00C40457 /* icons8-Unlock-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E4090E1F2BAF3C00C40457 /* icons8-Unlock-48.png */; };
 		98E7C8571F153E5500B24AF2 /* ListsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E7C8561F153E5500B24AF2 /* ListsTableViewController.swift */; };
 		9D1B63AC6A527F57401EE883 /* Pods_GoGo_Lists.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D02269D7C94818823DE357 /* Pods_GoGo_Lists.framework */; };
 /* End PBXBuildFile section */
@@ -69,6 +71,8 @@
 		9896653B1F201D2A00B7CE5C /* UIImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		98C9F85F1F181A92006F2DCD /* IndividualListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndividualListTableViewController.swift; sourceTree = "<group>"; };
 		98C9F8611F183449006F2DCD /* ListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		98E4090C1F2BAEDF00C40457 /* icons8-Unlock-96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-Unlock-96.png"; path = "../../../Downloads/icons8-Unlock-96.png"; sourceTree = "<group>"; };
+		98E4090E1F2BAF3C00C40457 /* icons8-Unlock-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-Unlock-48.png"; path = "../../../Downloads/icons8-Unlock-48.png"; sourceTree = "<group>"; };
 		98E7C8561F153E5500B24AF2 /* ListsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListsTableViewController.swift; path = ../ListsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,6 +128,8 @@
 		9818DC2F1F0B310800CEC08C /* GoGo Lists */ = {
 			isa = PBXGroup;
 			children = (
+				98E4090C1F2BAEDF00C40457 /* icons8-Unlock-96.png */,
+				98E4090E1F2BAF3C00C40457 /* icons8-Unlock-48.png */,
 				9818DC301F0B310800CEC08C /* AppDelegate.swift */,
 				9821E1CB1F268A09006581A8 /* icons8-Barcode.png */,
 				9821E1CF1F26992C006581A8 /* icons8-Christmas Star.png */,
@@ -257,11 +263,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98E4090D1F2BAEDF00C40457 /* icons8-Unlock-96.png in Resources */,
 				9818DC381F0B310800CEC08C /* Assets.xcassets in Resources */,
 				9821E1CE1F2697A5006581A8 /* icons8-Editing Icons Align Text Left.png in Resources */,
 				9803217C1F0FF6A9006EA4BB /* GoogleService-Info.plist in Resources */,
 				9821E1CC1F268A09006581A8 /* icons8-Barcode.png in Resources */,
 				9818DC361F0B310800CEC08C /* Main.storyboard in Resources */,
+				98E4090F1F2BAF3C00C40457 /* icons8-Unlock-48.png in Resources */,
 				9821E1D01F26992C006581A8 /* icons8-Christmas Star.png in Resources */,
 				9821E1D21F2699E1006581A8 /* icons8-Star-26.png in Resources */,
 			);

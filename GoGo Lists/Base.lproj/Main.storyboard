@@ -111,7 +111,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XlS-bw-SO5" id="L1u-Tt-JDa">
-                                    <rect key="frame" x="0.0" y="0.0" width="328" height="75"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="328" height="74.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKV-FT-igT">
@@ -174,6 +174,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="activityView" destination="yxm-0r-ePi" id="dsR-u3-2ej"/>
                         <outlet property="addNewListButton" destination="b2y-Nj-0tB" id="8r3-L3-LIC"/>
@@ -238,18 +239,15 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem title="Make Public" id="28t-Sc-p8d">
-                            <connections>
-                                <action selector="makePublicButtonPressed:" destination="Q9w-ge-tF1" id="5AE-fI-E6D"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Zc8-Z6-CpO"/>
+                        <barButtonItem style="plain" systemItem="bookmarks" id="Zc8-Z6-CpO"/>
                         <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="JQM-9v-GYQ"/>
                         <barButtonItem systemItem="action" id="BP0-kv-HuG">
                             <connections>
                                 <action selector="shareByUIDButtonPressed:" destination="Q9w-ge-tF1" id="11M-9h-CZX"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="ZQF-EM-Gpk"/>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="Zpi-Yx-aPz"/>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="SZp-St-KLN"/>
                         <barButtonItem title="Item" systemItem="compose" id="HHi-sh-n86">
                             <connections>
@@ -659,6 +657,15 @@
                     <view key="view" contentMode="scaleToFill" id="5hn-d6-5po">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P0N-Eq-8oR">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Title" id="4Vl-m7-1tD"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
                         <color key="backgroundColor" red="0.69803921570000005" green="0.87450980389999999" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
@@ -674,6 +681,9 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" toolbarHidden="NO" id="JD6-Jo-cyV" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
                     <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" id="L5J-9q-cFX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
