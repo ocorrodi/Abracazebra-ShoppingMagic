@@ -164,8 +164,8 @@
 				989665341F1E67C500B7CE5C /* Views */,
 				98C9F85C1F154419006F2DCD /* Controllers */,
 				9813FA861F1985A90037F0D3 /* Models */,
-				980F339B1F2D7A500012997A /* Custom Activities */,
 				9818DC341F0B310800CEC08C /* Main.storyboard */,
+				980F339B1F2D7A500012997A /* Custom Activities */,
 				980F339C1F2D7A850012997A /* Supporting Files */,
 			);
 			path = "GoGo Lists";

@@ -62,7 +62,7 @@ class MakePublicActivity: UIActivity {
     
     
     override var activityImage: UIImage? {
-        return UIImage(named: activityImageName)
+        return UIImage(named: "icons8-Unlock-96.png")
     }
     
     

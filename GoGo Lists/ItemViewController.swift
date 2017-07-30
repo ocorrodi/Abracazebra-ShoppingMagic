@@ -32,6 +32,9 @@ class ItemViewController: UIViewController {
     
     @IBOutlet weak var buyingOptionsButton: UIButton!
     
+    @IBOutlet weak var autoFillButton: UIButton!
+    
+    
     
     var item: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: " ", buyingOptions: [], favorite: false)
     var listTitle: List?
@@ -50,7 +53,7 @@ class ItemViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Chalkboard SE", size: 25)!, NSForegroundColorAttributeName: UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
 
         if item.imageURLString != " " {
             self.itemImageView.downloadedFrom(url: URL(string: item.imageURLString)!)
@@ -110,14 +113,27 @@ class ItemViewController: UIViewController {
             favoriteButton.isEnabled = true
             favoriteButton.setTitle("☆ Add to Favorites ☆", for: .normal)
         }
-        if item.buyingOptions.count == 0 {
-            buyingOptionsButton.setTitle("No Buying Options", for: .normal)
-            buyingOptionsButton.isEnabled = false
+//        if item.buyingOptions.count == 0 {
+//            buyingOptionsButton.setTitle("No Buying Options", for: .normal)
+//            buyingOptionsButton.isEnabled = false
+//        }
+//        else {
+//            buyingOptionsButton.setTitle("View Buying Options", for: .normal)
+//            buyingOptionsButton.isEnabled = true
+//        }
+        if item.imageURLString != "" {
+            autoFillButton.isHidden = true
         }
         else {
-            buyingOptionsButton.setTitle("View Buying Options", for: .normal)
-            buyingOptionsButton.isEnabled = true
+            autoFillButton.isHidden = false
         }
+        if item.imageURLString != " " {
+            autoFillButton.isHidden = true
+        }
+        else {
+            autoFillButton.isHidden = false
+        }
+
     }
     
     func showErrorAlert(message: String) {
@@ -363,7 +379,9 @@ class ItemViewController: UIViewController {
         if item.brand == "" {
             item.brand = " "
         }
-        item.barcode = barcodeTextField.text!
+        if barcodeTextField.text == "" {
+            item.barcode = barcodeTextField.text!
+        }
         if item.barcode == "" {
             item.barcode = " "
         }
@@ -410,6 +428,7 @@ class ItemViewController: UIViewController {
         alertController.addAction(dismissAction)
         self.present(alertController, animated: true, completion: nil)
         favoriteButton.isEnabled = false
+        favoriteButton.setTitle("Already a Favorite!", for: .normal)
     }
     
 
@@ -418,7 +437,54 @@ class ItemViewController: UIViewController {
     }
     
     
+    @IBAction func autoFillButtonPressed(_ sender: Any) {
+        APIManager.getInfoForItem(withBarcode: barcodeTextField.text!) { (errorMessage, item) in
+            
+            if errorMessage == nil {
+                self.item = item!
+                if item?.title == "" {
+                    self.showErrorAlert(message: "Item not found")
+                }
+                print(item?.buyingOptions)
+                self.titeTextField.text = item?.title
+                self.brandTextField.text = item?.brand
+                self.priceTextField.text = item?.price
+                self.barcodeTextField.text = self.barcodeTextField.text
+                item?.favorite = false
+                if item?.imageURLString != "" {
+                    self.itemImageView.downloadedFrom(url: URL(string: item!.imageURLString)!)
+                }
+            } else {
+                self.showErrorAlert(message: errorMessage!)
+            }
+            
+        }
+        
+        
+        //            barcodeTextField.text = barcodeScanned
+        //            titeTextField.text = "scanneditem"
+
     
+        if item.title != "" {
+            titeTextField.text = item.title
+            brandTextField.text = item.brand
+            priceTextField.text = item.price
+            barcodeTextField.text = item.barcode
+    
+        }
+        if item.favorite == true {
+            favoriteButton.isEnabled = false
+            favoriteButton.setTitle("Already a Favorite!", for: .normal)
+        }
+        else {
+            favoriteButton.isEnabled = true
+            favoriteButton.setTitle("☆ Add to Favorites ☆", for: .normal)
+        }
+    }
+}
+
+
+
 
     /*
     // MARK: - Navigation
@@ -430,4 +496,3 @@ class ItemViewController: UIViewController {
     }
     */
 
-}

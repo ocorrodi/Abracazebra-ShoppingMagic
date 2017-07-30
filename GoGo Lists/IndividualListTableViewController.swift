@@ -219,12 +219,17 @@ class IndividualListTableViewController: UITableViewController, MFMessageCompose
                         var buyingOptionsArray = [BuyingOption]()
 
                         if key != "isPublic" && key != "name"{
-                            if let unwrappedValue = value["buyingOptions"], let buyingOptions2 = unwrappedValue as? [String : Any]{
-                                for (key,aBuyingOptionDict) in buyingOptions2{
-                                    var castedDict = aBuyingOptionDict as! [String : Any]
-                                    let buyingOptionObject = BuyingOption(dictionary: castedDict)
-                                    buyingOptionsArray.append(buyingOptionObject)
+                            if let buyingOptions2 = value["buyingOptions"] as? [[String : Any]]{
+                                
+                                for buyingOptionDict in buyingOptions2 {
+                                    let buyingOptionsObject = BuyingOption(name: buyingOptionDict["name"] as! String, price: buyingOptionDict["price"] as! Double, link: buyingOptionDict["link"] as! String)
+                                    buyingOptionsArray.append(buyingOptionsObject)
                                 }
+//                                for (key,aBuyingOptionDict) in buyingOptions2{
+//                                    var castedDict = aBuyingOptionDict as! [String : Any]
+//                                    let buyingOptionObject = BuyingOption(dictionary: castedDict)
+//                                    buyingOptionsArray.append(buyingOptionObject)
+//                                }
                             }
                             else{
                                 buyingOptionsArray = []
