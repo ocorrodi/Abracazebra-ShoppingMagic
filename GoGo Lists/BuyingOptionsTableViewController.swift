@@ -74,6 +74,8 @@ class BuyingOptionsTableViewController: UITableViewController, BuyingOptionsTabl
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        self.tabBarController?.tabBar.isHidden = true
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Chalkboard SE", size: 25)!]
         self.navigationController?.navigationBar.tintColor = UIColor .white
 

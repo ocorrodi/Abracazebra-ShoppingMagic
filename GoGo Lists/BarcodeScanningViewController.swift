@@ -36,6 +36,8 @@ class BarcodeScanningViewController: UIViewController, AVCaptureMetadataOutputOb
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tabBarController?.tabBar.isHidden = true
+        
         self.view.backgroundColor = UIColor.clear
         
         self.setupCamera()

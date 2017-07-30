@@ -28,6 +28,7 @@ class FavoritesTableViewController: UITableViewController, FavoritesTableViewCel
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Chalkboard SE", size: 25)!]
         self.navigationController?.navigationBar.tintColor = UIColor .white
 
@@ -76,25 +77,43 @@ class FavoritesTableViewController: UITableViewController, FavoritesTableViewCel
         let user = Auth.auth().currentUser
         let ref = Database.database().reference().child("users").child(user!.uid).child("lists").child("favorites and recents")
         ref.observeSingleEvent(of: .value, with: { snapshot in
-            if let valueList = snapshot.value as? NSDictionary as? [String: [String : Any]] {
+            if let valueList = snapshot.value as? NSDictionary as? [String: Any] {
                 var itemsToPass = [Item]()
-                for (key,value) in valueList {
-                    var buyingOptions2 = [BuyingOption]()
-
-                    var buyersDict = value["buyingOptions"] as! [String : Any]
-                    for (buyerKey, buyerValue) in buyersDict{
-                        let thingWeWant = buyerValue as! [String : Any]
-                        buyingOptions2.append(BuyingOption(dictionary: thingWeWant))
+                for (key, value) in valueList {
+                    if let value = value as? [String : Any]{
+                        var buyingOptionsArray = [BuyingOption]()
+                        
+                        if key != "isPublic" {
+                            if let unwrappedValue = value["buyingOptions"], let buyingOptions2 = unwrappedValue as? [String : Any]{
+                                for (key,aBuyingOptionDict) in buyingOptions2{
+                                    var castedDict = aBuyingOptionDict as! [String : Any]
+                                    let buyingOptionObject = BuyingOption(dictionary: castedDict)
+                                    buyingOptionsArray.append(buyingOptionObject)
+                                }
+                            }
+                            else{
+                                buyingOptionsArray = []
+                            }
+                            
+                            
+                            print(value["favorite"] as! Bool)
+                            itemsToPass.append(Item(title: key, brand: value["brand"]! as! String, price: value["price"]! as! String, barcode: value["barcode"]! as! String, imageURL: value["imageURL"]! as! String, buyingOptions: buyingOptionsArray, favorite: value["favorite"] as! Bool))
+                        }
                     }
                     
-                    //let buyingOptions2 = BuyingOption(dictionary: [])//valueList[item]!["buyingOptions"]! as? NSArray as? [[String]]
-                    itemsToPass.append(Item(title: value["title"] as! String, brand: value["brand"]! as! String,price: value["price"]! as! String, barcode: value["barcode"]! as! String, imageURL: value["imageURL"]! as! String, buyingOptions: buyingOptions2, favorite: value["favorite"] as! Bool))
-                    }
+                    
+                }
+                print(itemsToPass)
+//                self.activityView.isHidden = true
+//                self.activityView.stopAnimating()
                 return completion(itemsToPass)
             } else {
+//                self.activityView.isHidden = true
+//                self.activityView.stopAnimating()
                 return completion([])
             }
         })
+        
         
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

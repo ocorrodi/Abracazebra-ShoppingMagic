@@ -30,6 +30,7 @@ class ItemViewController: UIViewController {
     
     @IBOutlet weak var favoriteButton: UIButton!
     
+    @IBOutlet weak var buyingOptionsButton: UIButton!
     
     
     var item: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: " ", buyingOptions: [], favorite: false)
@@ -54,6 +55,7 @@ class ItemViewController: UIViewController {
         if item.imageURLString != " " {
             self.itemImageView.downloadedFrom(url: URL(string: item.imageURLString)!)
         }
+        self.tabBarController?.tabBar.isHidden = true
         print(item)
         if editingTheItem {
             oldItemTitle = item.title
@@ -102,9 +104,19 @@ class ItemViewController: UIViewController {
         }
         if item.favorite == true {
             favoriteButton.isEnabled = false
+            favoriteButton.setTitle("Already a Favorite!", for: .normal)
         }
         else {
             favoriteButton.isEnabled = true
+            favoriteButton.setTitle("☆ Add to Favorites ☆", for: .normal)
+        }
+        if item.buyingOptions.count == 0 {
+            buyingOptionsButton.setTitle("No Buying Options", for: .normal)
+            buyingOptionsButton.isEnabled = false
+        }
+        else {
+            buyingOptionsButton.setTitle("View Buying Options", for: .normal)
+            buyingOptionsButton.isEnabled = true
         }
     }
     

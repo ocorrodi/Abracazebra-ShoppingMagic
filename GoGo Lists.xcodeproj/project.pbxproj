@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9803217C1F0FF6A9006EA4BB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9803217B1F0FF6A9006EA4BB /* GoogleService-Info.plist */; };
 		9804F8641F13F1F1005036A9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804F8631F13F1F1005036A9 /* User.swift */; };
+		980F33981F2D6F200012997A /* ShareViaEmailActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980F33971F2D6F1F0012997A /* ShareViaEmailActivity.swift */; };
+		980F339A1F2D7A150012997A /* MakePublicActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980F33991F2D7A150012997A /* MakePublicActivity.swift */; };
 		9811D18C1F23F8730050F30F /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9811D18B1F23F8730050F30F /* FavoritesTableViewController.swift */; };
 		9811D18E1F23F9980050F30F /* FavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9811D18D1F23F9980050F30F /* FavoritesTableViewCell.swift */; };
 		9813FA831F19314A0037F0D3 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9813FA821F19314A0037F0D3 /* ItemViewController.swift */; };
@@ -45,6 +47,8 @@
 		8668BAD1C9B049788F99D1EB /* Pods-GoGo Lists.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoGo Lists.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoGo Lists/Pods-GoGo Lists.release.xcconfig"; sourceTree = "<group>"; };
 		9803217B1F0FF6A9006EA4BB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9804F8631F13F1F1005036A9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		980F33971F2D6F1F0012997A /* ShareViaEmailActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViaEmailActivity.swift; sourceTree = "<group>"; };
+		980F33991F2D7A150012997A /* MakePublicActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakePublicActivity.swift; sourceTree = "<group>"; };
 		9811D18B1F23F8730050F30F /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		9811D18D1F23F9980050F30F /* FavoritesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewCell.swift; sourceTree = "<group>"; };
 		9813FA821F19314A0037F0D3 /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +100,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		980F339B1F2D7A500012997A /* Custom Activities */ = {
+			isa = PBXGroup;
+			children = (
+				980F33971F2D6F1F0012997A /* ShareViaEmailActivity.swift */,
+				980F33991F2D7A150012997A /* MakePublicActivity.swift */,
+			);
+			name = "Custom Activities";
+			sourceTree = "<group>";
+		};
+		980F339C1F2D7A850012997A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9818DC371F0B310800CEC08C /* Assets.xcassets */,
+				9803217B1F0FF6A9006EA4BB /* GoogleService-Info.plist */,
+				9818DC3C1F0B310800CEC08C /* Info.plist */,
+				989665391F20123B00B7CE5C /* APIManager.swift */,
+				9821E1D51F26EFA5006581A8 /* WalmartAPIManager.swift */,
+				9896653B1F201D2A00B7CE5C /* UIImageViewExtension.swift */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		9813FA861F1985A90037F0D3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,13 +164,9 @@
 				989665341F1E67C500B7CE5C /* Views */,
 				98C9F85C1F154419006F2DCD /* Controllers */,
 				9813FA861F1985A90037F0D3 /* Models */,
+				980F339B1F2D7A500012997A /* Custom Activities */,
 				9818DC341F0B310800CEC08C /* Main.storyboard */,
-				9818DC371F0B310800CEC08C /* Assets.xcassets */,
-				9803217B1F0FF6A9006EA4BB /* GoogleService-Info.plist */,
-				9818DC3C1F0B310800CEC08C /* Info.plist */,
-				989665391F20123B00B7CE5C /* APIManager.swift */,
-				9821E1D51F26EFA5006581A8 /* WalmartAPIManager.swift */,
-				9896653B1F201D2A00B7CE5C /* UIImageViewExtension.swift */,
+				980F339C1F2D7A850012997A /* Supporting Files */,
 			);
 			path = "GoGo Lists";
 			sourceTree = "<group>";
@@ -336,6 +358,7 @@
 				989665311F1E674D00B7CE5C /* BarcodeScanningViewController.swift in Sources */,
 				989665361F1FFE8C00B7CE5C /* BuyingOptionsTableViewCell.swift in Sources */,
 				9811D18C1F23F8730050F30F /* FavoritesTableViewController.swift in Sources */,
+				980F33981F2D6F200012997A /* ShareViaEmailActivity.swift in Sources */,
 				98C9F8621F183449006F2DCD /* ListTableViewCell.swift in Sources */,
 				9813FA831F19314A0037F0D3 /* ItemViewController.swift in Sources */,
 				9820E9261F2910FD00AF7ED4 /* BuyingOption.swift in Sources */,
@@ -348,6 +371,7 @@
 				9896653C1F201D2A00B7CE5C /* UIImageViewExtension.swift in Sources */,
 				9821E1D61F26EFA5006581A8 /* WalmartAPIManager.swift in Sources */,
 				98E7C8571F153E5500B24AF2 /* ListsTableViewController.swift in Sources */,
+				980F339A1F2D7A150012997A /* MakePublicActivity.swift in Sources */,
 				9818DC331F0B310800CEC08C /* IntroViewController.swift in Sources */,
 				9818DC311F0B310800CEC08C /* AppDelegate.swift in Sources */,
 			);

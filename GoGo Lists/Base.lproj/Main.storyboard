@@ -102,16 +102,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" red="0.81960784310000001" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="syA-ag-nG4">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="yxm-0r-ePi">
-                            <rect key="frame" x="0.0" y="103" width="375" height="20"/>
+                            <rect key="frame" x="0.0" y="583" width="375" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="listCell" rowHeight="75" id="XlS-bw-SO5" customClass="ListTableViewCell" customModule="GoGo_Lists" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="75"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="listCell" editingAccessoryType="detailDisclosureButton" rowHeight="75" id="XlS-bw-SO5" customClass="ListTableViewCell" customModule="GoGo_Lists" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XlS-bw-SO5" id="L1u-Tt-JDa">
-                                    <rect key="frame" x="0.0" y="0.0" width="328" height="74.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="75"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKV-FT-igT">
@@ -122,7 +127,7 @@
                                                 <constraint firstAttribute="height" constant="75" id="MUr-AD-dRa"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="20"/>
-                                            <color key="textColor" red="0.0" green="0.41176470588235292" blue="0.36078431372549019" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -132,7 +137,7 @@
                                         <constraint firstItem="xKV-FT-igT" firstAttribute="centerY" secondItem="L1u-Tt-JDa" secondAttribute="centerY" id="ni6-Ec-OBH"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.69803921568627447" green="0.87450980392156863" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <color key="tintColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="listTitleLabel" destination="xKV-FT-igT" id="SWj-qZ-udj"/>
@@ -178,6 +183,7 @@
                     <connections>
                         <outlet property="activityView" destination="yxm-0r-ePi" id="dsR-u3-2ej"/>
                         <outlet property="addNewListButton" destination="b2y-Nj-0tB" id="8r3-L3-LIC"/>
+                        <outlet property="searchDisplayController" destination="QP6-Wx-aKI" id="TQN-dt-yJD"/>
                         <outlet property="segmentedControl" destination="MuO-Ho-qdf" id="TqH-Nx-0oM"/>
                         <segue destination="Q9w-ge-tF1" kind="show" identifier="showList" id="Qb5-ta-6BV"/>
                         <segue destination="iGY-K5-8HM" kind="unwind" identifier="unwindSegueToIntro" unwindAction="unwindToIntroWithSegue:" id="9Hj-ZY-IUm"/>
@@ -185,6 +191,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DD0-Dd-LBv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="iGY-K5-8HM" userLabel="Exit" sceneMemberID="exit"/>
+                <searchDisplayController searchResultsTitle="Results" id="QP6-Wx-aKI">
+                    <connections>
+                        <outlet property="delegate" destination="bq5-aD-IC6" id="NQP-3J-pVR"/>
+                        <outlet property="searchContentsController" destination="bq5-aD-IC6" id="RpU-EL-EOB"/>
+                        <outlet property="searchResultsDataSource" destination="bq5-aD-IC6" id="J6M-gk-wOu"/>
+                        <outlet property="searchResultsDelegate" destination="bq5-aD-IC6" id="WOs-2j-4dC"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="3610.4000000000001" y="261.31934032983509"/>
         </scene>
@@ -196,7 +210,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="sectionIndexBackgroundColor" red="0.81960784310000001" green="0.76862745099999996" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" id="S7i-1a-Mey">
                             <rect key="frame" x="0.0" y="103" width="375" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -216,7 +230,7 @@
                                                 <constraint firstAttribute="height" constant="75" id="yq5-af-W0f"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="20"/>
-                                            <color key="textColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -227,7 +241,7 @@
                                         <constraint firstItem="Jem-eI-MWx" firstAttribute="leading" secondItem="MIX-iB-cZx" secondAttribute="leading" constant="8" id="yiG-ve-t7D"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.69803921570000005" green="0.87450980389999999" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="itemTitleLabel" destination="Jem-eI-MWx" id="Jmz-4l-koA"/>
                                 </connections>
@@ -239,19 +253,13 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem style="plain" systemItem="bookmarks" id="Zc8-Z6-CpO"/>
                         <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="JQM-9v-GYQ"/>
-                        <barButtonItem systemItem="action" id="BP0-kv-HuG">
-                            <connections>
-                                <action selector="shareByUIDButtonPressed:" destination="Q9w-ge-tF1" id="11M-9h-CZX"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="ZQF-EM-Gpk"/>
                         <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="Zpi-Yx-aPz"/>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="SZp-St-KLN"/>
-                        <barButtonItem title="Item" systemItem="compose" id="HHi-sh-n86">
+                        <barButtonItem systemItem="action" id="BP0-kv-HuG">
                             <connections>
-                                <action selector="messageListButtonPressed:" destination="Q9w-ge-tF1" id="yg3-FH-nKa"/>
+                                <action selector="shareByUIDButtonPressed:" destination="Q9w-ge-tF1" id="11M-9h-CZX"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -291,13 +299,13 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAj-U6-Ccd">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="40"/>
-                                        <color key="backgroundColor" red="0.69803921570000005" green="0.87450980389999999" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Rx4-m8-nqb"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="19"/>
                                         <state key="normal" title="Enter Manually" image="icons8-Editing Icons Align Text Left.png">
-                                            <color key="titleColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="0NG-gK-eh9" kind="show" identifier="addByText" id="dWy-5C-LLp"/>
@@ -305,13 +313,13 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YX8-hr-pOo">
                                         <rect key="frame" x="0.0" y="140" width="200" height="40"/>
-                                        <color key="backgroundColor" red="0.69803921570000005" green="0.87450980389999999" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="3Ma-Ul-EVe"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="19"/>
                                         <state key="normal" title="Scan Barcode" image="icons8-Barcode.png">
-                                            <color key="titleColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="ww1-GB-wMF" kind="show" identifier="toBarcodeScanner" id="j5e-f8-LdP"/>
@@ -319,13 +327,13 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pr2-mi-1xX">
                                         <rect key="frame" x="0.0" y="280" width="200" height="40"/>
-                                        <color key="backgroundColor" red="0.69803921570000005" green="0.87450980389999999" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="oNW-rS-mL8"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="15"/>
                                         <state key="normal" title=" Select from Favorites" image="icons8-Star-26.png">
-                                            <color key="titleColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="Vcy-6I-FeX" kind="show" identifier="toFavorites" id="cFD-uO-QH9"/>
@@ -338,7 +346,7 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.69803921570000005" green="0.87450980389999999" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="H2v-dG-obk" firstAttribute="centerX" secondItem="pz2-tE-Etm" secondAttribute="centerX" id="9WP-tD-6rN"/>
                             <constraint firstItem="H2v-dG-obk" firstAttribute="centerY" secondItem="pz2-tE-Etm" secondAttribute="centerY" id="HVH-dr-V9g"/>
@@ -368,7 +376,7 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfp-xC-vcT">
                                             <rect key="frame" x="337" y="27" width="22" height="22"/>
-                                            <color key="tintColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="tintColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="addItemButtonTapped:" destination="rQh-pw-Ad0" eventType="touchUpInside" id="8CX-YQ-avf"/>
                                             </connections>
@@ -379,7 +387,7 @@
                                                 <constraint firstAttribute="width" constant="300" id="ZaH-gi-a1T"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="20"/>
-                                            <color key="textColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -391,7 +399,7 @@
                                         <constraint firstItem="hfp-xC-vcT" firstAttribute="leading" secondItem="Hzn-ao-Iyd" secondAttribute="trailing" constant="21" id="uaN-xf-a1h"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.69803921570000005" green="0.87450980389999999" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="addItemButton" destination="hfp-xC-vcT" id="pUO-F1-a2R"/>
                                     <outlet property="itemLabel" destination="Hzn-ao-Iyd" id="FBO-q9-zK5"/>
@@ -446,10 +454,10 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cp0-ZV-C5U">
                                         <rect key="frame" x="0.0" y="0.0" width="250" height="36"/>
-                                        <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="20"/>
                                         <state key="normal" title="☆ Add to Favorites ☆">
-                                            <color key="titleColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="addToFavoritesButtonPressed:" destination="0NG-gK-eh9" eventType="touchUpInside" id="hWa-pg-z3q"/>
@@ -457,10 +465,10 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qr1-vO-9Pl">
                                         <rect key="frame" x="0.0" y="56" width="250" height="36"/>
-                                        <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="20"/>
                                         <state key="normal" title="View Buying Options">
-                                            <color key="titleColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="showBuyingOptionsButtonPressed:" destination="0NG-gK-eh9" eventType="touchUpInside" id="bHP-V1-sqT"/>
@@ -481,19 +489,19 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Brand" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNO-Ir-efg">
                                                 <rect key="frame" x="0.0" y="0.0" width="83.5" height="33"/>
                                                 <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="20"/>
-                                                <color key="textColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j9T-Jy-gqo">
                                                 <rect key="frame" x="0.0" y="73" width="83.5" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="20"/>
-                                                <color key="textColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Barcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IBU-yM-29V">
                                                 <rect key="frame" x="0.0" y="136.5" width="83.5" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="20"/>
-                                                <color key="textColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -527,7 +535,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.69803921570000005" green="0.87450980389999999" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="m8q-2B-4IW" firstAttribute="centerX" secondItem="66p-gv-M2d" secondAttribute="centerX" id="0YD-rF-bCD"/>
                             <constraint firstItem="1KX-8h-X5O" firstAttribute="top" secondItem="Pnb-qg-EYk" secondAttribute="bottom" constant="35" id="8Vq-kq-GZd"/>
@@ -552,6 +560,7 @@
                     <connections>
                         <outlet property="barcodeTextField" destination="v6o-rd-Sw9" id="2Zj-de-InS"/>
                         <outlet property="brandTextField" destination="d4q-mD-knC" id="Ski-cg-OGU"/>
+                        <outlet property="buyingOptionsButton" destination="Qr1-vO-9Pl" id="A94-g2-P5e"/>
                         <outlet property="favoriteButton" destination="Cp0-ZV-C5U" id="8SO-OM-tns"/>
                         <outlet property="itemImageView" destination="m8q-2B-4IW" id="qjC-HM-gje"/>
                         <outlet property="priceTextField" destination="WSd-GL-hRq" id="wPK-Kk-6aa"/>
@@ -587,7 +596,7 @@
                                                 <constraint firstAttribute="height" constant="45" id="HCc-jU-q8w"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="25"/>
-                                            <color key="textColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NEg-y7-uRa">
@@ -597,19 +606,19 @@
                                                 <constraint firstAttribute="width" constant="145" id="oNe-g3-7Rh"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="20"/>
-                                            <color key="textColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bku-jl-0or">
                                             <rect key="frame" x="232" y="58" width="120" height="50"/>
-                                            <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="04P-2q-IoS"/>
                                                 <constraint firstAttribute="width" constant="120" id="8qp-6o-I3R"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="28"/>
                                             <state key="normal" title="Buy!">
-                                                <color key="titleColor" red="0.0" green="0.41176470590000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <connections>
                                                 <action selector="buyButtonTapped:" destination="rOh-hz-Aix" eventType="touchUpInside" id="3ch-QS-Mfy"/>
@@ -627,7 +636,7 @@
                                         <constraint firstItem="o5z-ZD-iW5" firstAttribute="leading" secondItem="cgR-H4-JE7" secondAttribute="leading" constant="8" id="yqg-Bo-AfE"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.69803921570000005" green="0.87450980389999999" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="buyButton" destination="bku-jl-0or" id="BBw-RT-w68"/>
                                     <outlet property="merchantLabel" destination="o5z-ZD-iW5" id="RB4-qa-ePa"/>

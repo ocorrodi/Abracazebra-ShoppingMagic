@@ -11,7 +11,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import FirebaseAuthUI
 
-class ListsTableViewController: UITableViewController {
+class ListsTableViewController: UITableViewController, UISearchResultsUpdating {
     
     var selectedList: List?
     
@@ -29,6 +29,10 @@ class ListsTableViewController: UITableViewController {
     let user = Auth.auth().currentUser
     var publicLists = false
     var privateLists = true
+    var resultSearchController = UISearchController()
+    var filteredResults: [String] = []
+    var everythingBeforeFiltering: [String] = []
+    var allFilteredResults: [String] = []
 
 
     @IBOutlet weak var listTitleLabel: UILabel!
@@ -39,17 +43,37 @@ class ListsTableViewController: UITableViewController {
 //        self.navigationController?.navigationBar.tintColor = UIColor .white
         
         super.viewDidLoad()
+        self.resultSearchController = ({
+            let controller = UISearchController(searchResultsController: nil)
+            controller.searchResultsUpdater = self
+            controller.dimsBackgroundDuringPresentation = false
+            controller.searchBar.sizeToFit()
+            
+            self.tableView.tableHeaderView = controller.searchBar
+            
+            return controller
+        })()
+        
         if publicLists {
             getPublicLists(completion: { (retrievedLists) in
                 self.lists = retrievedLists
+                for list in self.lists {
+                    self.everythingBeforeFiltering.append(list.title)
+                }
                 self.tableView.reloadData()
             })
         }
         else {
             getPrivateLists(completion: { (retrievedLists) in
                 self.lists = retrievedLists
+                for list in self.lists {
+                    self.everythingBeforeFiltering.append(list.title)
+                }
+
                 self.tableView.reloadData()
             })
+
+
 
         }
         // Uncomment the following line to preserve selection between presentations
@@ -75,6 +99,10 @@ class ListsTableViewController: UITableViewController {
             })
         }
         self.activityView.isHidden = true
+        for list in self.lists {
+            self.everythingBeforeFiltering.append(list.title)
+        }
+
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -240,20 +268,30 @@ class ListsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        
-        if lists != nil {
-            return lists.count
+        if resultSearchController.isActive == false {
+            if lists != nil {
+                return lists.count
             
-        } else {
-            return 0
+            } else {
+                return 0
+            }
+        }
+        else {
+            return filteredResults.count
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListTableViewCell
         print(lists)
+        allFilteredResults = filteredResults + everythingBeforeFiltering
+        if (self.resultSearchController.isActive) {
+            cell.listTitleLabel.text = filteredResults[indexPath.row]
+        }
+        else {
         let oneList = lists[indexPath.row]
         cell.listTitleLabel.text = oneList.title
+        }
         return cell
     }
     @IBAction func unwindToLists(segue:UIStoryboardSegue) {
@@ -278,6 +316,20 @@ class ListsTableViewController: UITableViewController {
             tableView.reloadData()
             ref.setValue(nil)
         }
+    }
+    func updateSearchResults(for searchController: UISearchController)
+    {
+        filteredResults.removeAll(keepingCapacity: false)
+        
+        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
+        let array = (everythingBeforeFiltering as NSArray).filtered(using: searchPredicate)
+        filteredResults = array as! [String]
+        for list in filteredResults  {
+            let index = filteredResults.index(of: list)
+            everythingBeforeFiltering.remove(at: index!)
+        }
+        
+        self.tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
@@ -373,4 +425,3 @@ class ListsTableViewController: UITableViewController {
     }
     
 }
-

@@ -42,6 +42,7 @@ class IntroViewController: UIViewController {
     
 
     override func viewDidLoad() {
+        self.tabBarController?.tabBar.isHidden = true
         super.viewDidLoad()
 //        self.navigationController?.navigationBar.isHidden = true
         

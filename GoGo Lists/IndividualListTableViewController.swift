@@ -24,13 +24,14 @@ class IndividualListTableViewController: UITableViewController, MFMessageCompose
     var itemSelected: Item = Item(title: "", brand: "", price: "", barcode: "", imageURL: " ", buyingOptions: [], favorite: false)
     var isAPublicItem = false
     var emailAndUIDs: [String : String] = [:]
+    let HIPMustachifyActivityType = "com.syncViaEmail"
     
     override func viewWillAppear(_ animated: Bool) {
-        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Chalkboard SE", size: 25)!]
         self.navigationController?.navigationBar.tintColor = UIColor .white
 
-        self.activityView.isHidden = true
+        self.activityView.isHidden = false
         let user = Auth.auth().currentUser
+        self.tabBarController?.tabBar.isHidden = false
         if currentList?.title == "favorites and recents" {
             self.getPrivateItems { (retrievedItems) in
                 self.items = retrievedItems
@@ -313,15 +314,13 @@ class IndividualListTableViewController: UITableViewController, MFMessageCompose
         
         
     }
-    
-    
-    @IBAction func shareByUIDButtonPressed(_ sender: Any) {
+    func syncViaEmail() -> Void {
         let user = Auth.auth().currentUser
-        let alertController = UIAlertController(title: "Share List by UID", message: "Please enter a uid to share this list with. Your UID is : \(user!.uid)", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Share List by Email", message: "Please enter an email to share this list with.", preferredStyle: .alert)
             let sendAction = UIAlertAction(title: "Send", style: .default, handler: { [unowned self] (UIAlertAction) in
             let sharingTextField = alertController.textFields?[0] as! UITextField
             let emailToShareWith = sharingTextField.text as! String
-
+        
             let ref = Database.database().reference().child("users").child(user!.uid).child("lists").child((self.currentList?.uid)!)
             self.getEmailsAndUIDs { (emailsAndUID) in
                 self.emailAndUIDs = emailsAndUID
@@ -329,27 +328,77 @@ class IndividualListTableViewController: UITableViewController, MFMessageCompose
                 ref.observeSingleEvent(of: .value, with: { [unowned self] snapshot in
                     if let valueList = snapshot.value as? NSDictionary as? [String: Any] {
                         let ref2 = Database.database().reference().child("users").child(uidToShareWith!).child("lists").child((self.currentList?.uid)!)
-                   // let childValues: [String: [String : [String : Any]]] = [uidToShareWith!: ["lists" : [(self.currentList?.uid)!: valueList]]]
-//                    ref2.updateChildValues(childValues)
+                           // let childValues: [String: [String : [String : Any]]] = [uidToShareWith!: ["lists" : [(self.currentList?.uid)!: valueList]]]
+        //                    ref2.updateChildValues(childValues)
                         ref2.setValue(valueList)
                     }
-
+        
                 })
             }
-
+        
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
             alertController.dismiss(animated: true, completion: nil)
         })
-
+        
         alertController.addAction(cancelAction)
         alertController.addAction(sendAction)
         alertController.addTextField { (textField: UITextField) -> Void in
             self.present(alertController, animated: true, completion: nil)
         }
     }
-}
     
+
+    @IBAction func shareByUIDButtonPressed(_ sender: Any) {
+//        let user = Auth.auth().currentUser
+//        let alertController = UIAlertController(title: "Share List by Email", message: "Please enter an email to share this list with.", preferredStyle: .alert)
+//            let sendAction = UIAlertAction(title: "Send", style: .default, handler: { [unowned self] (UIAlertAction) in
+//            let sharingTextField = alertController.textFields?[0] as! UITextField
+//            let emailToShareWith = sharingTextField.text as! String
+//
+//            let ref = Database.database().reference().child("users").child(user!.uid).child("lists").child((self.currentList?.uid)!)
+//            self.getEmailsAndUIDs { (emailsAndUID) in
+//                self.emailAndUIDs = emailsAndUID
+//                let uidToShareWith = self.emailAndUIDs[emailToShareWith]
+//                ref.observeSingleEvent(of: .value, with: { [unowned self] snapshot in
+//                    if let valueList = snapshot.value as? NSDictionary as? [String: Any] {
+//                        let ref2 = Database.database().reference().child("users").child(uidToShareWith!).child("lists").child((self.currentList?.uid)!)
+//                   // let childValues: [String: [String : [String : Any]]] = [uidToShareWith!: ["lists" : [(self.currentList?.uid)!: valueList]]]
+////                    ref2.updateChildValues(childValues)
+//                        ref2.setValue(valueList)
+//                    }
+//
+//                })
+//            }
+//
+//        })
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
+//            alertController.dismiss(animated: true, completion: nil)
+//        })
+//
+//        alertController.addAction(cancelAction)
+//        alertController.addAction(sendAction)
+//        alertController.addTextField { (textField: UITextField) -> Void in
+//            self.present(alertController, animated: true, completion: nil)
+//        }
+//    }
+    var itemsStr = ""
+    for item in items {
+        itemsStr += "\n" + item.title
+    }
+    getEmailsAndUIDs { (emailAndUIDDict) in
+        self.emailAndUIDs = emailAndUIDDict
+        let strForSharing = "items on \(self.currentList!.title): \(itemsStr)"
+        let actionToAdd = ShareViaEmailActivity(title: "Sync Via Email", imageName: "icons8-Editing Icons Align Text Left", currentListUID: (self.currentList?.uid)!, emailsAndUIDs: self.emailAndUIDs, VC: self)
+        let secondActionToAdd = MakePublicActivity(title: "Make List Public", imageName: "icons8-Unlock-48", currentListUID: (self.currentList?.uid)!, emailsAndUIDs: emailAndUIDDict, VC: self, currentListTitle: (self.currentList?.title)!, items: self.items)
+        let activityViewController = UIActivityViewController(activityItems: [strForSharing], applicationActivities: [actionToAdd, secondActionToAdd])
+        activityViewController.excludedActivityTypes = [UIActivityType.airDrop]
+        self.navigationController?.present(activityViewController, animated: true) {
+        }}
+
+    }
+}
+
     
     
 
