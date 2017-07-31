@@ -8,10 +8,25 @@
 
 import UIKit
 
+protocol ListTableViewCellProtocol: class {
+    func editListTitle(row: Int)
+}
+
+
 class ListTableViewCell: UITableViewCell {
     
     
     @IBOutlet weak var listTitleLabel: UILabel!
+    
+    @IBOutlet weak var editListButton: UIButton!
+    
+    var row: Int!
+    
+    @IBAction func editListButtonTapped(_ sender: Any) {
+        delegate?.editListTitle(row: row)
+    }
+    
+    weak var delegate: ListTableViewCellProtocol?
 
     override func awakeFromNib() {
         super.awakeFromNib()
