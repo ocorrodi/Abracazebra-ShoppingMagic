@@ -39,9 +39,11 @@ class ListsTableViewController: UITableViewController, UISearchResultsUpdating, 
     
     
     override func viewDidLoad() {
- //       UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Chalkboard SE", size: 25)!]
+        let navigationBarAppearace = UINavigationBar.appearance()
+        navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.navigationController?.navigationBar.tintColor = UIColor .white
 //        self.navigationController?.navigationBar.tintColor = UIColor .white
-        
+        self.tabBarController?.tabBar.isHidden = true
         super.viewDidLoad()
         self.resultSearchController = ({
             let controller = UISearchController(searchResultsController: nil)
@@ -83,6 +85,9 @@ class ListsTableViewController: UITableViewController, UISearchResultsUpdating, 
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
 
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     func editListTitle(row: Int) {
         let listEdited = self.lists[row]

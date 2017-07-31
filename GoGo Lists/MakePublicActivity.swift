@@ -12,7 +12,7 @@ import FirebaseAuthUI
 import Firebase
 
 
-class MakePublicActivity: UIActivity {
+class zMakePublicActivity: UIActivity {
     
     var customActivityType: UIActivityType
     var activityName: String
@@ -62,7 +62,7 @@ class MakePublicActivity: UIActivity {
     
     
     override var activityImage: UIImage? {
-        return UIImage(named: "icons8-Unlock-96.png")
+        return UIImage(named: "unlock.jpg")
     }
     
     

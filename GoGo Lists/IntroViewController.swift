@@ -42,6 +42,9 @@ class IntroViewController: UIViewController {
     
 
     override func viewDidLoad() {
+        let navigationBarAppearace = UINavigationBar.appearance()
+        navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        self.navigationController?.navigationBar.tintColor = UIColor .black
         self.tabBarController?.tabBar.isHidden = true
         super.viewDidLoad()
 //        self.navigationController?.navigationBar.isHidden = true

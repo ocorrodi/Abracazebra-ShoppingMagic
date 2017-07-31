@@ -28,7 +28,6 @@ class IndividualListTableViewController: UITableViewController, MFMessageCompose
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.tintColor = UIColor .white
-
         self.activityView.isHidden = false
         let user = Auth.auth().currentUser
         self.tabBarController?.tabBar.isHidden = false
@@ -394,9 +393,9 @@ class IndividualListTableViewController: UITableViewController, MFMessageCompose
     getEmailsAndUIDs { (emailAndUIDDict) in
         self.emailAndUIDs = emailAndUIDDict
         let strForSharing = "items on \(self.currentList!.title): \(itemsStr)"
-        let actionToAdd = ShareViaEmailActivity(title: "Sync Via Email", imageName: "icons8-Editing Icons Align Text Left", currentListUID: (self.currentList?.uid)!, emailsAndUIDs: self.emailAndUIDs, VC: self)
-        let secondActionToAdd = MakePublicActivity(title: "Make List Public", imageName: "icons8-Unlock-48", currentListUID: (self.currentList?.uid)!, emailsAndUIDs: emailAndUIDDict, VC: self, currentListTitle: (self.currentList?.title)!, items: self.items)
-        let activityViewController = UIActivityViewController(activityItems: [strForSharing], applicationActivities: [actionToAdd, secondActionToAdd])
+        let actionToAdd = zMakePublicActivity(title: "Make List Public", imageName: "icons8-Unlock-48", currentListUID: (self.currentList?.uid)!, emailsAndUIDs: emailAndUIDDict, VC: self, currentListTitle: (self.currentList?.title)!, items: self.items)
+        let secondActionToAdd = ShareViaEmailActivity(title: "Sync Via Email", imageName: "icons8-Editing Icons Align Text Left", currentListUID: (self.currentList?.uid)!, emailsAndUIDs: self.emailAndUIDs, VC: self)
+        let activityViewController = UIActivityViewController(activityItems: [strForSharing], applicationActivities: [secondActionToAdd, actionToAdd])
         activityViewController.excludedActivityTypes = [UIActivityType.airDrop]
         self.navigationController?.present(activityViewController, animated: true) {
         }}

@@ -28,6 +28,10 @@
 		9821E1D01F26992C006581A8 /* icons8-Christmas Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 9821E1CF1F26992C006581A8 /* icons8-Christmas Star.png */; };
 		9821E1D21F2699E1006581A8 /* icons8-Star-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 9821E1D11F2699E1006581A8 /* icons8-Star-26.png */; };
 		9821E1D61F26EFA5006581A8 /* WalmartAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9821E1D51F26EFA5006581A8 /* WalmartAPIManager.swift */; };
+		9844C5BE1F2F9FE9006D3B9A /* 52_cloud_sync.png in Resources */ = {isa = PBXBuildFile; fileRef = 9844C5BD1F2F9FE9006D3B9A /* 52_cloud_sync.png */; };
+		9844C5C01F2FA804006D3B9A /* nicolas-cage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9844C5BF1F2FA804006D3B9A /* nicolas-cage.jpg */; };
+		9844C5C21F2FA979006D3B9A /* 52_cloud_sync_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 9844C5C11F2FA979006D3B9A /* 52_cloud_sync_white.png */; };
+		9844C5C41F2FABEB006D3B9A /* unlock.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9844C5C31F2FABEB006D3B9A /* unlock.jpg */; };
 		989665311F1E674D00B7CE5C /* BarcodeScanningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989665301F1E674D00B7CE5C /* BarcodeScanningViewController.swift */; };
 		989665361F1FFE8C00B7CE5C /* BuyingOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989665351F1FFE8C00B7CE5C /* BuyingOptionsTableViewCell.swift */; };
 		989665381F1FFEAC00B7CE5C /* BuyingOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989665371F1FFEAC00B7CE5C /* BuyingOptionsTableViewController.swift */; };
@@ -68,6 +72,10 @@
 		9821E1CF1F26992C006581A8 /* icons8-Christmas Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-Christmas Star.png"; path = "../../../Downloads/Downloaded-3/icons8-Christmas Star.png"; sourceTree = "<group>"; };
 		9821E1D11F2699E1006581A8 /* icons8-Star-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-Star-26.png"; path = "../../../Downloads/icons8-Star-26.png"; sourceTree = "<group>"; };
 		9821E1D51F26EFA5006581A8 /* WalmartAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalmartAPIManager.swift; sourceTree = "<group>"; };
+		9844C5BD1F2F9FE9006D3B9A /* 52_cloud_sync.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 52_cloud_sync.png; path = ../../../Downloads/52_cloud_sync.png; sourceTree = "<group>"; };
+		9844C5BF1F2FA804006D3B9A /* nicolas-cage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "nicolas-cage.jpg"; path = "../../../Downloads/nicolas-cage.jpg"; sourceTree = "<group>"; };
+		9844C5C11F2FA979006D3B9A /* 52_cloud_sync_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 52_cloud_sync_white.png; path = ../../../Downloads/52_cloud_sync_white.png; sourceTree = "<group>"; };
+		9844C5C31F2FABEB006D3B9A /* unlock.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = unlock.jpg; path = ../../../Downloads/unlock.jpg; sourceTree = "<group>"; };
 		989665301F1E674D00B7CE5C /* BarcodeScanningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScanningViewController.swift; sourceTree = "<group>"; };
 		989665351F1FFE8C00B7CE5C /* BuyingOptionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyingOptionsTableViewCell.swift; sourceTree = "<group>"; };
 		989665371F1FFEAC00B7CE5C /* BuyingOptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyingOptionsTableViewController.swift; sourceTree = "<group>"; };
@@ -103,8 +111,8 @@
 		980F339B1F2D7A500012997A /* Custom Activities */ = {
 			isa = PBXGroup;
 			children = (
-				980F33971F2D6F1F0012997A /* ShareViaEmailActivity.swift */,
 				980F33991F2D7A150012997A /* MakePublicActivity.swift */,
+				980F33971F2D6F1F0012997A /* ShareViaEmailActivity.swift */,
 			);
 			name = "Custom Activities";
 			sourceTree = "<group>";
@@ -154,12 +162,16 @@
 		9818DC2F1F0B310800CEC08C /* GoGo Lists */ = {
 			isa = PBXGroup;
 			children = (
+				9844C5C11F2FA979006D3B9A /* 52_cloud_sync_white.png */,
 				98E4090C1F2BAEDF00C40457 /* icons8-Unlock-96.png */,
 				98E4090E1F2BAF3C00C40457 /* icons8-Unlock-48.png */,
 				9818DC301F0B310800CEC08C /* AppDelegate.swift */,
 				9821E1CB1F268A09006581A8 /* icons8-Barcode.png */,
 				9821E1CF1F26992C006581A8 /* icons8-Christmas Star.png */,
+				9844C5BD1F2F9FE9006D3B9A /* 52_cloud_sync.png */,
+				9844C5BF1F2FA804006D3B9A /* nicolas-cage.jpg */,
 				9821E1CD1F2697A5006581A8 /* icons8-Editing Icons Align Text Left.png */,
+				9844C5C31F2FABEB006D3B9A /* unlock.jpg */,
 				9821E1D11F2699E1006581A8 /* icons8-Star-26.png */,
 				989665341F1E67C500B7CE5C /* Views */,
 				98C9F85C1F154419006F2DCD /* Controllers */,
@@ -288,11 +300,15 @@
 				98E4090D1F2BAEDF00C40457 /* icons8-Unlock-96.png in Resources */,
 				9818DC381F0B310800CEC08C /* Assets.xcassets in Resources */,
 				9821E1CE1F2697A5006581A8 /* icons8-Editing Icons Align Text Left.png in Resources */,
+				9844C5C21F2FA979006D3B9A /* 52_cloud_sync_white.png in Resources */,
+				9844C5BE1F2F9FE9006D3B9A /* 52_cloud_sync.png in Resources */,
 				9803217C1F0FF6A9006EA4BB /* GoogleService-Info.plist in Resources */,
 				9821E1CC1F268A09006581A8 /* icons8-Barcode.png in Resources */,
+				9844C5C41F2FABEB006D3B9A /* unlock.jpg in Resources */,
 				9818DC361F0B310800CEC08C /* Main.storyboard in Resources */,
 				98E4090F1F2BAF3C00C40457 /* icons8-Unlock-48.png in Resources */,
 				9821E1D01F26992C006581A8 /* icons8-Christmas Star.png in Resources */,
+				9844C5C01F2FA804006D3B9A /* nicolas-cage.jpg in Resources */,
 				9821E1D21F2699E1006581A8 /* icons8-Star-26.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -57,7 +57,8 @@ class ShareViaEmailActivity: UIActivity {
     
     
     override var activityImage: UIImage? {
-        return UIImage(named: activityImageName)
+        return UIImage(named: "52_cloud_sync_white")
+        //       return UIImage(named: activityImageName)
     }
     
     
